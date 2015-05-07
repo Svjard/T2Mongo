@@ -1,0 +1,17 @@
+{
+  "name"         : "mongodemo",
+  "version"      : "0.0.1",
+  "description"  : "Scrape the web for product data for the demo",
+  "main"         : "scraper.js",
+  "author"       : "Teradata",
+  "dependencies" : {
+    "bluebird"   : "*",
+    "chance"     : "*",
+    "cheerio"    : "*",
+    "lodash"     : "*",
+    "java"       : "*",
+    "node-uuid"  : "*",
+    "lorem-ipsum": "*",
+    "request"    : "*"
+  }
+}

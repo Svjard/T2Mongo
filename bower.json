@@ -1,0 +1,29 @@
+{
+  "name": "molior",
+  "version": "0.0.1",
+  "main": "index.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "backbone": "*",
+    "backbone-validation": "*",
+    "bootstrap": "3.3.2",
+    "bootstrap-datepicker": "*",
+    "d3": "*",
+    "font-awesome": "*",
+    "jquery": "*",
+    "lodash": "*",
+    "marionette": "*",
+    "moment": "*",
+    "node-uuid": "*",
+    "numeral": "*",
+    "pace": "*",
+    "pnotify": "*"
+  },
+  "resolutions": {
+    "bootstrap": "3.3.2"
+  }
+}

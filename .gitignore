@@ -1,2 +1,12 @@
+./molior
+*.swp
+*.swo
+config.json
+node_modules
+public/vendor
+public/build
+public/dist
 *.class
-node_modules/*
+*.bak
+target
+data/*

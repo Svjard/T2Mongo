@@ -1,0 +1,9 @@
+[openSUSE-11.0-Oss]
+name=openSUSE-11.0-Oss
+baseurl=http://download.opensuse.org/distribution/11.0/repo/oss/
+type=yast2
+enabled=1
+priority=120
+autorefresh=0
+gpgcheck=1
+keeppackages=0

@@ -25,6 +25,13 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import org.apache.commons.lang3.StringUtils;
+import java.io.FileInputStream;
+import com.mongodb.*;
+import com.mongodb.client.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.*;
+import java.io.File;
 
 public class DataGenerator {
   public static JsonArray products = new JsonArray();
@@ -2383,10 +2390,10 @@ public class DataGenerator {
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
     String strLine;
-    MongoCollection<Document> collection = db.getCollection(collectionName);
-    List<Document> documents = new ArrayList<Document>();
+    MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
+    List<org.bson.Document> documents = new ArrayList<org.bson.Document>();
     while ((strLine = br.readLine()) != null) {
-      Document bson = (Document) JSON.parse(strLine);
+      org.bson.Document bson = (org.bson.Document) com.mongodb.util.JSON.parse(strLine);
       documents.add(bson);
     }
 
@@ -2398,13 +2405,10 @@ public class DataGenerator {
     FileInputStream fstream = new FileInputStream(pathToFile);
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
-    String url = "jdbc:teradata://terat2mongocop/TMODE=ANSI,CHARSET=UTF8,TYPE=FASTLOAD";
-    Connection dbConnection = null;
-    Statement statement = null;
-
+    String url = "jdbc:teradata://192.168.11.134/TMODE=ANSI,CHARSET=UTF8,TYPE=FASTLOAD";
     Class.forName("com.teradata.jdbc.TeraDriver");
-    Connection con = DriverManager.getConnection(url, "dbc", "dbc");
-    Statement stmt = con.createStatement();
+    java.sql.Connection con = DriverManager.getConnection(url, "dbc", "dbc");
+    java.sql.Statement stmt = con.createStatement();
     String strLine;
     while ((strLine = br.readLine()) != null) {
       stmt.executeUpdate(strLine);

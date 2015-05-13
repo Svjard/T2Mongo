@@ -7,33 +7,42 @@ business.
 
 ### How to setup the demo
 
-1. First you need to get a Teradata Express VM.
-2. Add the VM to VM Player and launch the VM
-3. Once the VM has booted up open a console window. Run the command `netstat -r`. Find the *default* IP listed. Open /etc/resolv.conf as superuser. Change the nameserver entry to the default IP.
-[Show Screenshot]
-4. Next we need to install R on the VM. Go to http:// and download the latest source.
-5. `tar -zxvf r....tar.gz`
-6. cd ...
-7. `./configure`
-8. `./make`
-9. `./install`
-10. Load our data.
-10. Next we need to create a new VM in VM Player.
-11. Install Debian 7.x using the netinst ISO.
-12. Once you have completed the installation we need to install Mongo. Go to and download the latest.
-13. Setup sudo for this user.
-13. `mkdir --parent /data/db`
-14. `cd mongo/bin`
-15. `sudo ./mongod --dbpath=/data/db`
-15. `sudo apt-get install git`
-16. Load our data.
-17. Launch our Rest Server after install Java 1.7.
-18. On the Windows Host, open up Google Chrome and go to http://[IP]:8085
-
+#### Teradata Express VM
 
 NOTE: The minimum required TDBMS versions are:
 - TDBMS_15.00.02g.48
 - TDBMS_15.10m.00.87
+
+1. First you need to get a Teradata Express VM.
+2. Add the VM to VM Player and launch the VM
+3. Once the VM has booted up open a console window. Run the command `netstat -r`. Find the *default* IP listed. Open /etc/resolv.conf as superuser. Change the nameserver entry to the default IP.
+4. `wget http://cran.rstudio.com/src/base/R-3/R-3.2.0.tar.gz`
+5. `tar -zxvf R-3.2.0.tar.gz`
+6. `cd R-3.2.0`
+7. First we must install an fortran compiler as is required by R. So run the following commands:
+  `wget https://Svjard@bitbucket.org/Svjard/t2mongo/openSUSE-11.0-Oss.repo.txt`
+  `cp openSUSE-11.0-Oss.repo.txt /etc/zypp/repos.d/openSUSE-11.0-Oss.repo`
+  `zypper in gcc-fortran`
+  and follow the instructions to correctly downgrade to the proper packages.
+7. `./configure --with-readline=no --with-x=no`
+8. `make`
+9. `make install`
+10. Launch R running the command: `r`
+11. `packages.install("forecast")`
+12. `/etc/init.d/tpa start` will launch our database.
+
+#### MongoDB VM
+1. Create a VM and install Debian 7.x: https://www.debian.org/CD/netinst/
+2. Add your user under sudo by editing /etc/sudoers and adding the line `user    ALL=(ALL:ALL) ALL` where *user* is
+your username.
+3. `sudo apt-get install git`
+4. `git clone https://Svjard@bitbucket.org/Svjard/t2mongo.git`
+5. `chmod 755 t2mongo/script.sh`
+6. `sudo t2mongo/script.sh`
+
+
+17. Launch our Rest Server after install Java 1.7.
+18. On the Windows Host, open up Google Chrome and go to http://[IP]:8085
 
 
 ### UI Design

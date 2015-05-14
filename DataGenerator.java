@@ -1984,8 +1984,8 @@ public class DataGenerator {
       String query = "INSERT INTO MyECommerce.tdCustomer VALUES(" + id + ",'" + 
         username + "','" + 
         password + "',cast(cast(700101 as date) + " + 
-        created + " / 86400 as timestamp(6)) + (" + created + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
-        lastLogin + " / 86400 as timestamp(6)) + (" + lastLogin + " mod 86400) * interval '00:00:01' hour to second,'" +
+        String.format("%d", created) + " / 86400 as timestamp(6)) + (" + String.format("%d", created) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
+        String.format("%d", lastLogin) + " / 86400 as timestamp(6)) + (" + String.format("%d", lastLogin) + " mod 86400) * interval '00:00:01' hour to second,'" +
         status + "','" +
         firstname + "','" +
         lastname + "','" +
@@ -2098,7 +2098,7 @@ public class DataGenerator {
         e = format.parse("2015-07-04 23:59:59");
       }
 
-      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(" + n + ",'Loyal Customers','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1,cast(cast(700101 as date) + " + (s.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + (s.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + (e.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + (e.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second);\n");
+      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(" + n + ",'Loyal Customers','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1,cast(cast(700101 as date) + " + String.format("%d", s.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", s.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + String.format("%d", e.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", e.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second);\n");
       writerD.write("INSERT INTO MyECommerce.tdDiscount VALUES(" + n + "," + n + ",'" + iterator.next() + "', 0.4);\n");
       n++;
     }
@@ -2208,12 +2208,12 @@ public class DataGenerator {
         order + ",'" + 
         discount + "','" +
         UUID.randomUUID().toString() + "'," +
-        total + "," +
-        (0.32455 * weight) + "," +
-        tax + "," +
-        weight + ",cast(cast(700101 as date) + " + 
-        (created / 1000) + " / 86400 as timestamp(6)) + (" + (created / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
-        (created / 1000) + " / 86400 as timestamp(6)) + (" + (created / 1000) + " mod 86400) * interval '00:00:01' hour to second," +
+        String.format("%f", total) + "," +
+        String.format("%f", (0.32455 * weight)) + "," +
+        String.format("%f", tax) + "," +
+        String.format("%d", weight) + ",cast(cast(700101 as date) + " + 
+        String.format("%d", created / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", created / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
+        String.format("%d", created / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", created / 1000) + " mod 86400) * interval '00:00:01' hour to second," +
         (status.equals("completed") ? 1 : 0) + ",'" +
         status + "',NULL,'" +
         customers.get(customer - 1).getAsJsonObject().get("firstname").getAsString() + "','" +

@@ -2403,7 +2403,9 @@ public class DataGenerator {
       }
     }
 
-    collection.insertMany(documents);
+    if (documents.size() > 0) {
+      collection.insertMany(documents);
+    }
     br.close();
   }
 

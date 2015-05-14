@@ -2099,7 +2099,7 @@ public class DataGenerator {
         e = format.parse("2015-07-04 23:59:59");
       }
 
-      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(" + n + ",'Loyal Customers','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1,cast(cast(700101 as date) + " + String.format("%d", s.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", s.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + String.format("%d", e.getTime() / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", e.getTime() / 1000) + " mod 86400) * interval '00:00:01' hour to second);\n");
+      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(" + n + ",'Loyal Customers','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1,cast(cast(700101 as date) + " + new BigDecimal(s.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(s.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + new BigDecimal(e.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(e.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second);\n");
       writerD.write("INSERT INTO MyECommerce.tdDiscount VALUES(" + n + "," + n + ",'" + iterator.next() + "', 0.4);\n");
       n++;
     }

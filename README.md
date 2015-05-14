@@ -39,11 +39,11 @@ your username.
 4. `git clone https://Svjard@bitbucket.org/Svjard/t2mongo.git`
 5. `chmod 755 t2mongo/script.sh`
 6. `sudo t2mongo/script.sh`
+//17. Launch our Rest Server after install Java 1.7.
 
+### How to run the demo
 
-17. Launch our Rest Server after install Java 1.7.
-18. On the Windows Host, open up Google Chrome and go to http://[IP]:8085
-
+To start the demo, open Google Chrome to http://[IP]:3000 on your Windows Host machine, where IP is the ip of the MongoDB VM.
 
 ### UI Design
 

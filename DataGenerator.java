@@ -2390,11 +2390,17 @@ public class DataGenerator {
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
     String strLine;
+    int count = 0;
     MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
     List<org.bson.Document> documents = new ArrayList<org.bson.Document>();
     while ((strLine = br.readLine()) != null) {
       org.bson.Document bson = org.bson.Document.parse(strLine);
       documents.add(bson);
+      count++;
+      if (count >= 200) {
+        collection.insertMany(documents);
+        documents.clear();
+      }
     }
 
     collection.insertMany(documents);
@@ -2410,6 +2416,7 @@ public class DataGenerator {
     java.sql.Connection con = DriverManager.getConnection(url, "dbc", "dbc");
     java.sql.Statement stmt = con.createStatement();
     String strLine;
+    int count = 0;
     while ((strLine = br.readLine()) != null) {
       stmt.executeUpdate(strLine);
     }

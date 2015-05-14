@@ -32,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.io.File;
+import java.math.BigDecimal;
 
 public class DataGenerator {
   public static JsonArray products = new JsonArray();
@@ -1984,8 +1985,8 @@ public class DataGenerator {
       String query = "INSERT INTO MyECommerce.tdCustomer VALUES(" + id + ",'" + 
         username + "','" + 
         password + "',cast(cast(700101 as date) + " + 
-        String.format("%d", created) + " / 86400 as timestamp(6)) + (" + String.format("%d", created) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
-        String.format("%d", lastLogin) + " / 86400 as timestamp(6)) + (" + String.format("%d", lastLogin) + " mod 86400) * interval '00:00:01' hour to second,'" +
+        new BigDecimal(created).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
+        new BigDecimal(lastLogin).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(lastLogin).toPlainString() + " mod 86400) * interval '00:00:01' hour to second,'" +
         status + "','" +
         firstname + "','" +
         lastname + "','" +
@@ -2208,12 +2209,12 @@ public class DataGenerator {
         order + ",'" + 
         discount + "','" +
         UUID.randomUUID().toString() + "'," +
-        String.format("%f", total) + "," +
-        String.format("%f", (0.32455 * weight)) + "," +
-        String.format("%f", tax) + "," +
-        String.format("%d", weight) + ",cast(cast(700101 as date) + " + 
-        String.format("%d", created / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", created / 1000) + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
-        String.format("%d", created / 1000) + " / 86400 as timestamp(6)) + (" + String.format("%d", created / 1000) + " mod 86400) * interval '00:00:01' hour to second," +
+        new BigDecimal(total).toPlainString() + "," +
+        new BigDecimal(0.32455 * weight).toPlainString() + "," +
+        new BigDecimal(tax).toPlainString() + "," +
+        new BigDecimal(weight).toPlainString() + ",cast(cast(700101 as date) + " + 
+        new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
+        new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second," +
         (status.equals("completed") ? 1 : 0) + ",'" +
         status + "',NULL,'" +
         customers.get(customer - 1).getAsJsonObject().get("firstname").getAsString() + "','" +

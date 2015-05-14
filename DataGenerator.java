@@ -2393,7 +2393,7 @@ public class DataGenerator {
     MongoCollection<org.bson.Document> collection = db.getCollection(collectionName);
     List<org.bson.Document> documents = new ArrayList<org.bson.Document>();
     while ((strLine = br.readLine()) != null) {
-      org.bson.Document bson = (org.bson.Document) com.mongodb.util.JSON.parse(strLine);
+      org.bson.Document bson = org.bson.Document.parse(strLine);
       documents.add(bson);
     }
 

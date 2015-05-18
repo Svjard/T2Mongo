@@ -2196,7 +2196,7 @@ public class DataGenerator {
 
       int customer = (int)randLong(1L, 123000L),
           order = customers.get(customer - 1).getAsJsonObject().get("orders").getAsInt();
-      double tax = randFloat(0, 8.5) * total;
+      double tax = (randFloat(0, 8.5) / 100.0) * total;
 
       order++;
       customers.get(customer - 1).getAsJsonObject().addProperty("orders", order);
@@ -2207,7 +2207,7 @@ public class DataGenerator {
       }
 
       BigDecimal bdTotal = new BigDecimal(total).setScale(2, RoundingMode.CEILING);
-      BigDecimal bd = new BigDecimal(0.32455 * weight).setScale(2, RoundingMode.CEILING);
+      BigDecimal bd = new BigDecimal(0.032455 * weight).setScale(2, RoundingMode.CEILING);
       BigDecimal bdTax = new BigDecimal(tax).setScale(2, RoundingMode.CEILING);
 
       String query = "INSERT INTO MyECommerce.tdOrder VALUES(" + id + "," + 
@@ -2222,7 +2222,7 @@ public class DataGenerator {
         new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
         new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second," +
         (status.equals("completed") ? 1 : 0) + ",'" +
-        status + "',NULL,'" +
+        status + "','" +
         customers.get(customer - 1).getAsJsonObject().get("firstname").getAsString() + "','" +
         customers.get(customer - 1).getAsJsonObject().get("lastname").getAsString() + "'," +
         "NULL" + ",'" +
@@ -2451,10 +2451,10 @@ public class DataGenerator {
     //MongoDatabase db = mongoClient.getDatabase("t2mongo");
     //importJSON("data/tdUsers.json", db, "userstats");
     //importJSON("data/tdPageLoads.json", db, "perf");
-    importSQL("data/tdCategory.sql");
-    importSQL("data/tdCustomer.sql");
-    importSQL("data/tdDiscount.sql");
-    importSQL("data/tdMarketingCampaign.sql");
+    //importSQL("data/tdCategory.sql");
+    //importSQL("data/tdCustomer.sql");
+    //importSQL("data/tdDiscount.sql");
+    //importSQL("data/tdMarketingCampaign.sql");
     importSQL("data/tdOrder.sql");
     importSQL("data/tdOrderItem.sql");
     importSQL("data/tdProduct.sql");
@@ -2463,23 +2463,23 @@ public class DataGenerator {
   }
 
   public static void main(String[] args) throws Exception {
-    /*File file = new File("data");
+    File file = new File("data");
     if (!file.exists()) {
       file.mkdir();
     }
 
     System.err.println("setupCategories");
-    setupCategories(); //(CLEAN)
+    //setupCategories(); //(CLEAN)
     System.err.println("setupCustomers");
-    setupCustomers(); //(CLEAN)
+    //setupCustomers(); //(CLEAN)
     System.err.println("setupProducts");
-    setupProducts(); //(CLEAN)
+    //setupProducts(); //(CLEAN)
     System.err.println("setupOrders");
     setupOrders(); // (?)
     System.err.println("setupPageLoads");
-    setupPageLoads(); // (?)
+    //setupPageLoads(); // (?)
     System.err.println("setupBounceRate");
-    setupBounceRate();*/
+    //setupBounceRate();*/
 
     loadData();
   }

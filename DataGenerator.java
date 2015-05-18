@@ -2150,19 +2150,20 @@ public class DataGenerator {
         int items = (int)randLong(1L, 8L);
         for (int j = 0; j < items; j++) {
           int qty = 0;
-          if (weight <= 20) {
+          int weightd = (int)randLong(1L, 38L);
+          if (weightd <= 20) {
             qty = 1;
           }
-          else if (weight <= 30) {
+          else if (weightd <= 30) {
             qty = 2;
           }
-          else if (weight <= 35) {
+          else if (weightd <= 35) {
             qty = 3;
           }
-          else if (weight <= 37) {
+          else if (weightd <= 37) {
             qty = 3;
           }
-          else if (weight <= 38) {
+          else if (weightd <= 38) {
             qty = 4;
           }
           int p = (int)randLong(1L, (long)products.size());

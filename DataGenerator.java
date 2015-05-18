@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class DataGenerator {
   public static JsonArray products = new JsonArray();
@@ -2194,8 +2195,8 @@ public class DataGenerator {
       }
 
       int customer = (int)randLong(1L, 123000L),
-          order = customers.get(customer - 1).getAsJsonObject().get("orders").getAsInt(),
-          tax = (int)randFloat(0, 8.5) * total;
+          order = customers.get(customer - 1).getAsJsonObject().get("orders").getAsInt();
+      double tax = randFloat(0, 8.5) * total;
 
       order++;
       customers.get(customer - 1).getAsJsonObject().addProperty("orders", order);
@@ -2205,14 +2206,18 @@ public class DataGenerator {
         incomplete.add(customer);
       }
 
+      BigDecimal bdTotal = new BigDecimal(total).setScale(2, RoundingMode.CEILING);
+      BigDecimal bd = new BigDecimal(0.32455 * weight).setScale(2, RoundingMode.CEILING);
+      BigDecimal bdTax = new BigDecimal(tax).setScale(2, RoundingMode.CEILING);
+
       String query = "INSERT INTO MyECommerce.tdOrder VALUES(" + id + "," + 
         customer + "," + 
         order + ",'" + 
         discount + "','" +
         UUID.randomUUID().toString() + "'," +
-        new BigDecimal(total).toPlainString() + "," +
-        new BigDecimal(0.32455 * weight).toPlainString() + "," +
-        new BigDecimal(tax).toPlainString() + "," +
+        bdTotal.toPlainString() + "," +
+        bd.toPlainString() + "," +
+        bdTax.toPlainString() + "," +
         new BigDecimal(weight).toPlainString() + ",cast(cast(700101 as date) + " + 
         new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + 
         new BigDecimal(created / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(created / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second," +

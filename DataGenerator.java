@@ -2430,7 +2430,7 @@ public class DataGenerator {
       stmt.addBatch(strLine);
       count++;
 
-      if (count >= 5000) {
+      if (count >= 1000) {
         stmt.executeBatch();
         stmt.clearBatch();
         count = 0;

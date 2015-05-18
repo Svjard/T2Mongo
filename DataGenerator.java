@@ -1997,7 +1997,7 @@ public class DataGenerator {
         city + "','" +
         state + "','" +
         zip + "','" +
-        country.replaceAll("'", "\'") + "','" +
+        country.replaceAll("'", "\\'") + "','" +
         phonenumber1 + "','" +
         phonenumber2 + "','" +
         email + "'," +

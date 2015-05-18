@@ -2447,14 +2447,14 @@ public class DataGenerator {
   }
 
   public static void loadData() throws Exception {
-    //MongoClient mongoClient = new MongoClient("localhost", 27017);
-    //MongoDatabase db = mongoClient.getDatabase("t2mongo");
-    //importJSON("data/tdUsers.json", db, "userstats");
-    //importJSON("data/tdPageLoads.json", db, "perf");
-    //importSQL("data/tdCategory.sql");
-    //importSQL("data/tdCustomer.sql");
-    //importSQL("data/tdDiscount.sql");
-    //importSQL("data/tdMarketingCampaign.sql");
+    MongoClient mongoClient = new MongoClient("localhost", 27017);
+    MongoDatabase db = mongoClient.getDatabase("t2mongo");
+    importJSON("data/tdUsers.json", db, "userstats");
+    importJSON("data/tdPageLoads.json", db, "perf");
+    importSQL("data/tdCategory.sql");
+    importSQL("data/tdCustomer.sql");
+    importSQL("data/tdDiscount.sql");
+    importSQL("data/tdMarketingCampaign.sql");
     importSQL("data/tdOrder.sql");
     importSQL("data/tdOrderItem.sql");
     importSQL("data/tdProduct.sql");
@@ -2469,17 +2469,17 @@ public class DataGenerator {
     }
 
     System.err.println("setupCategories");
-    //setupCategories(); //(CLEAN)
+    setupCategories(); //(CLEAN)
     System.err.println("setupCustomers");
-    //setupCustomers(); //(CLEAN)
+    setupCustomers(); //(CLEAN)
     System.err.println("setupProducts");
-    //setupProducts(); //(CLEAN)
+    setupProducts(); //(CLEAN)
     System.err.println("setupOrders");
     setupOrders(); // (?)
     System.err.println("setupPageLoads");
-    //setupPageLoads(); // (?)
+    setupPageLoads(); // (?)
     System.err.println("setupBounceRate");
-    //setupBounceRate();*/
+    setupBounceRate();
 
     loadData();
   }

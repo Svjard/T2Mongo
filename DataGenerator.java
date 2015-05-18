@@ -1956,7 +1956,7 @@ public class DataGenerator {
              address2 = a.secondaryAddress(),
              city = a.citySuffix() + a.cityPrefix(),
              state = a.stateAbbr(),
-             country = a.country().replace("'", "\'"),
+             country = a.country(),
              zip = a.zipCode(),
              phonenumber1 = person.telephoneNumber(),
              phonenumber2 = "NULL",
@@ -1997,7 +1997,7 @@ public class DataGenerator {
         city + "','" +
         state + "','" +
         zip + "','" +
-        country + "','" +
+        country.replaceAll("'", "\'") + "','" +
         phonenumber1 + "','" +
         phonenumber2 + "','" +
         email + "'," +

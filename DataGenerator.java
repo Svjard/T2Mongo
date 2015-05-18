@@ -2427,18 +2427,30 @@ public class DataGenerator {
     String strLine;
     int count = 0;
     while ((strLine = br.readLine()) != null) {
-      stmt.executeUpdate(strLine);
+      stmt.addBatch(strLine);
+      count++;
+
+      if (count >= 5000) {
+        stmt.executeBatch();
+        stmt.clearBatch();
+        count = 0;
+      }
     }
+
+    if (count > 0) {
+      stmt.executeBatch();
+    }
+
     stmt.close();
     con.close();
     br.close();
   }
 
   public static void loadData() throws Exception {
-    MongoClient mongoClient = new MongoClient("localhost", 27017);
-    MongoDatabase db = mongoClient.getDatabase("t2mongo");
-    importJSON("data/tdUsers.json", db, "userstats");
-    importJSON("data/tdPageLoads.json", db, "perf");
+    //MongoClient mongoClient = new MongoClient("localhost", 27017);
+    //MongoDatabase db = mongoClient.getDatabase("t2mongo");
+    //importJSON("data/tdUsers.json", db, "userstats");
+    //importJSON("data/tdPageLoads.json", db, "perf");
     importSQL("data/tdCategory.sql");
     importSQL("data/tdCustomer.sql");
     importSQL("data/tdDiscount.sql");
@@ -2451,7 +2463,7 @@ public class DataGenerator {
   }
 
   public static void main(String[] args) throws Exception {
-    File file = new File("data");
+    /*File file = new File("data");
     if (!file.exists()) {
       file.mkdir();
     }
@@ -2467,7 +2479,7 @@ public class DataGenerator {
     System.err.println("setupPageLoads");
     setupPageLoads(); // (?)
     System.err.println("setupBounceRate");
-    setupBounceRate();
+    setupBounceRate();*/
 
     loadData();
   }

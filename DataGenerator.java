@@ -1992,12 +1992,12 @@ public class DataGenerator {
         firstname + "','" +
         lastname + "','" +
         organization + "','" +
-        address1.replaceAll("\\'", "\\\\'") + "','" +
-        address2.replaceAll("\\'", "\\\\'") + "','" +
-        city.replaceAll("\\'", "\\\\'") + "','" +
+        address1.replaceAll("\\'", "''") + "','" +
+        address2.replaceAll("\\'", "''") + "','" +
+        city.replaceAll("\\'", "''") + "','" +
         state + "','" +
         zip + "','" +
-        country.replaceAll("\\'", "\\\\'") + "','" +
+        country.replaceAll("\\'", "''") + "','" +
         phonenumber1 + "','" +
         phonenumber2 + "','" +
         email + "'," +
@@ -2226,12 +2226,12 @@ public class DataGenerator {
         customers.get(customer - 1).getAsJsonObject().get("firstname").getAsString() + "','" +
         customers.get(customer - 1).getAsJsonObject().get("lastname").getAsString() + "'," +
         "NULL" + ",'" +
-        customers.get(customer - 1).getAsJsonObject().get("address1").getAsString().replaceAll("\\'", "\\\\'") + "','" +
-        customers.get(customer - 1).getAsJsonObject().get("address2").getAsString().replaceAll("\\'", "\\\\'") + "','" +
-        customers.get(customer - 1).getAsJsonObject().get("city").getAsString().replaceAll("\\'", "\\\\'") + "','" +
+        customers.get(customer - 1).getAsJsonObject().get("address1").getAsString().replaceAll("\\'", "''") + "','" +
+        customers.get(customer - 1).getAsJsonObject().get("address2").getAsString().replaceAll("\\'", "''") + "','" +
+        customers.get(customer - 1).getAsJsonObject().get("city").getAsString().replaceAll("\\'", "''") + "','" +
         customers.get(customer - 1).getAsJsonObject().get("state").getAsString() + "','" +
         customers.get(customer - 1).getAsJsonObject().get("zip").getAsString() + "','" +
-        customers.get(customer - 1).getAsJsonObject().get("country").getAsString().replaceAll("\\'", "\\\\'") + "','" +
+        customers.get(customer - 1).getAsJsonObject().get("country").getAsString().replaceAll("\\'", "''") + "','" +
         customers.get(customer - 1).getAsJsonObject().get("phonenumber1").getAsString() + "','" +
         customers.get(customer - 1).getAsJsonObject().get("phonenumber2").getAsString() + "','" +
         customers.get(customer - 1).getAsJsonObject().get("email").getAsString() + "'," +

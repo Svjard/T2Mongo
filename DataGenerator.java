@@ -2048,7 +2048,7 @@ public class DataGenerator {
                retailPrice = Double.parseDouble(rp.equals("") ? cost.toString() : rp);
         String title = subdoc.select("h1.ProductTitle").get(0).text();
         long weight = randLong(1, 100);
-        title = title.replace("'", "\\\'").replace("\"", "\\\"");
+        title = title.replaceAll("\\'", "''");
 
         JsonObject o = new JsonObject();
         o.addProperty("id", id);
@@ -2058,7 +2058,7 @@ public class DataGenerator {
         o.addProperty("code", uid.substring(0, uid.indexOf("-")));
         products.add(o);
 
-        String query = "INSERT INTO MyECommerce.tdProduct VALUES(" + id + ",'" + uid.substring(0, uid.indexOf("-")) + "','" + title + "','" + removeLastChar(StringUtils.join(tp.word(5).split(" "), ",")) + "','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1," + String.format("%f", cost) + "," + String.format("%f", price) + "," + String.format("%f", retailPrice) + "," + weight + ",1,'dummy.png',NULL,NULL,NULL,NULL,NULL," + randLong(1L, 71L) + "," + i + ");\n";
+        String query = "INSERT INTO MyECommerce.tdProduct VALUES(" + id + ",'" + uid.substring(0, uid.indexOf("-")) + "','" + title + "','" + removeLastChar(StringUtils.join(tp.word(5).split(" "), ",")) + "','" + removeLastChar(StringUtils.join(tp.paragraph(5), ",")) + "',1," + (new BigDecimal(cost)).setScale(2, RoundingMode.CEILING).toPlainString() + "," + (new BigDecimal(price)).setScale(2, RoundingMode.CEILING).toPlainString() + "," + (new BigDecimal(retailPrice)).setScale(2, RoundingMode.CEILING).toPlainString() + "," + weight + ",1,'dummy.png',NULL,NULL,NULL,NULL,NULL," + randLong(1L, 71L) + "," + i + ");\n";
         writerP.write(query);
         id++;
         i++;

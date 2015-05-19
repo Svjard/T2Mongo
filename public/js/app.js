@@ -5,9 +5,9 @@ var Backbone = require('backbone'),
 
 module.exports = App = function App() {};
 
-function resize () {
+function resize() {
   var h = $(window).height() - $('#topnav').height();
-  $('#page-content,#page-leftbar').css({ 'overflow-y': 'auto', 'overflow-x': 'hidden' }).height(h);
+  $('#page-container').height(h);
 }
 
 function loadItem (url, id, callback) {

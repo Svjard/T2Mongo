@@ -2258,20 +2258,20 @@ public class DataGenerator {
     pages.add("/browse/{category}");
     pages.add("/item/{id}");
     
-    for (int i = 0; i < 250000 * 5; i++) {
+    for (int i = 0; i < 1000 * 5; i++) {
       int p = (int)randLong(1L, 100L);
       int id = 0;
       long ts = 0;
-      if (i < 250000) {
+      if (i < 1000) {
         ts = oRandomPage(0);
       }
-      else if (i < 500000) {
+      else if (i < 2000) {
         ts = oRandomPage(1);
       }
-      else if (i < 750000) {
+      else if (i < 3000) {
         ts = oRandomPage(2);
       }
-      else if (i < 1000000) {
+      else if (i < 4000) {
         ts = oRandomPage(3);
       }
       else {
@@ -2319,21 +2319,21 @@ public class DataGenerator {
     // users, session time, page hit count, user-agent
     PrintWriter writer = new PrintWriter(new FileWriter("data/tdUsers.json"));
     
-    for (int i = 0; i < 250000 * 5; i++) {
+    for (int i = 0; i < 1000 * 5; i++) {
       int p = (int)randLong(1L, 100L);
       int id = 0;
       String user = String.valueOf(randLong(1L, 123000L));
       long ts = 0;
-      if (i < 250000) {
+      if (i < 1000) {
         ts = oRandomPage(0);
       }
-      else if (i < 500000) {
+      else if (i < 2000) {
         ts = oRandomPage(1);
       }
-      else if (i < 750000) {
+      else if (i < 3000) {
         ts = oRandomPage(2);
       }
-      else if (i < 1000000) {
+      else if (i < 4000) {
         ts = oRandomPage(3);
       }
       else {
@@ -2459,7 +2459,6 @@ public class DataGenerator {
     importSQL("data/tdOrderItem.sql");
     importSQL("data/tdProduct.sql");
     importSQL("data/tdSKU.sql");
-    importSQL("data/tdMarketingCampaign.sql");
   }
 
   public static void main(String[] args) throws Exception {

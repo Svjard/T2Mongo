@@ -12,6 +12,18 @@
         <p>
         Showing how Teradata&reg;'s Query Grid&#8482; provides seamless multi-system analytics with our Unified Data Architecture&#8482;. By using the best-in-class analytic engine behind Teradata we can integrate with MongoDB to provide new insights and data value to a company.
         </p>
+        <h4>Setting up QueryGrid</h4>
+        <p>
+          <code><pre>
+          CREATE FOREGIN SERVER TD_SERVER_DB.Mongo USING
+            hosttype('mongodb')
+            remotehost('192.168.11.130')
+            port(27017)
+            tableopdebug(1)
+            DO IMPORT WITH SYSLIB.LOAD_FROM_MONGO
+          </pre></code>
+        </p>
+
         <h4 style="margin: 0;">History</h4>
         <div class="releases" style="font-size: 11px;">
           <div class="release">

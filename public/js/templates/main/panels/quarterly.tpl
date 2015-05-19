@@ -13,23 +13,34 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <code>
+        <code><pre>
           SELECT
             EXTRACT(month from created) as OrderMonth,
             COUNT (total),
-            SUM (total),
+            SUM (total) 
           FROM "MyECommerce"."tdOrder"
-          WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-04-30'
-          GROUP BY OrderMonth;
-        </code>
+          WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
+          GROUP BY OrderMonth
+          ORDER BY OrderMonth;
+        </pre></code>
       </div>
     </div>
   </div>
   <div class="col-xs-12">
-    <div class="panel panel-primary panel-admin">
+    <div class="panel panel-primary panel-admin panel-quarterly">
       <div class="panel-body">
         <h4>Quarterly Revenue</h4>
-        <div id="quarterly-chart">
+        <div id="quarterly-revenue-chart">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="panel panel-primary panel-admin panel-quarterly">
+      <div class="panel-body">
+        <h4>Quarterly Orders</h4>
+        <div id="quarterly-orders-chart">
           
         </div>
       </div>

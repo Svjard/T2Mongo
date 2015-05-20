@@ -2314,7 +2314,7 @@ public class DataGenerator {
       String q = "{";
       q += "\"page\":\"" + page + "\",";
       q += "\"timestamp\":" + ts + ",";
-      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month)) + "\",";
+      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month + 1)) + "\",";
       q += "\"ms\":" + ms + "}\n";
       writer.write(q);
     }
@@ -2392,7 +2392,7 @@ public class DataGenerator {
       String q = "{";
       q += "\"user\":\"" + user + "\",";
       q += "\"timestamp\":" + ts + ",";
-      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month)) + "\",";
+      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month + 1)) + "\",";
       q += "\"session\":" + sessionTime + ",";
       q += "\"pages\":" + pages + ",";
       q += "\"referrer\":\"" + r + "\",";

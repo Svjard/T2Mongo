@@ -6,6 +6,7 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/transactions.tpl'),
   className: 'panel-view',
   onShow: function() {
+    var self = this;
     $.ajax({
       error: function (jqXHR, textStatus, errorThrown) {
         alert('Server Error');

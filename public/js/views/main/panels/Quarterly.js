@@ -6,13 +6,14 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/quarterly.tpl'),
   className: 'panel-view',
   onShow: function() {
+    var self = this;
     $.ajax({
       error: function (jqXHR, textStatus, errorThrown) {
         alert('Server Error');
       },
       success: function (data, textStatus, jqXHR) {
-        this.renderChart1(data.revenue);
-        this.renderChart2(data.orders);
+        self.renderChart1(data.revenue);
+        self.renderChart2(data.orders);
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query1'

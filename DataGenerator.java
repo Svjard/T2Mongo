@@ -34,6 +34,7 @@ import java.sql.*;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
 
 public class DataGenerator {
   public static JsonArray products = new JsonArray();
@@ -2305,9 +2306,15 @@ public class DataGenerator {
         page = page.replace("{id}", "" + id);
       }
       int ms = (int)randLong(50L, 376L);
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(new Date(ts));
+      int month = cal.get(Calendar.MONTH);
+      int year = cal.get(Calendar.YEAR);
+
       String q = "{";
       q += "\"page\":\"" + page + "\",";
       q += "\"timestamp\":" + ts + ",";
+      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month)) + "\",";
       q += "\"ms\":" + ms + "}\n";
       writer.write(q);
     }
@@ -2378,9 +2385,14 @@ public class DataGenerator {
       int sessionTime = (int)randLong(1L, 123000L);
       int pages = (int)randLong(1L, 25L); 
       String userAgent = getRandomUserAgent();
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(new Date(ts));
+      int month = cal.get(Calendar.MONTH);
+      int year = cal.get(Calendar.YEAR);
       String q = "{";
       q += "\"user\":\"" + user + "\",";
       q += "\"timestamp\":" + ts + ",";
+      q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month)) + "\",";
       q += "\"session\":" + sessionTime + ",";
       q += "\"pages\":" + pages + ",";
       q += "\"referrer\":\"" + r + "\",";

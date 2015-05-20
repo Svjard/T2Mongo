@@ -16,7 +16,7 @@ module.exports = Marionette.ItemView.extend({
         this.renderChart3(data.sessions, '#session-time-chart');
       },
       type: 'POST',
-      url: 'http://localhost:8055/api/query3'
+      url: 'http://192.168.11.130:8055/api/query3'
     });
   },
   renderChart1: function(data) {

@@ -15,7 +15,7 @@ module.exports = Marionette.ItemView.extend({
         this.renderChart2(data.orders);
       },
       type: 'POST',
-      url: 'http://localhost:8055/api/query1'
+      url: 'http://192.168.11.130:8055/api/query1'
     });
   },
   renderChart1: function(data) {

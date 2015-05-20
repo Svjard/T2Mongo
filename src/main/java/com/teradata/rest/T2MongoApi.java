@@ -13,6 +13,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import java.text.SimpleDateFormat;
+import java.text.ParsePosition;
+
 import java.sql.*;
  
 @Path("/api")
@@ -62,31 +65,34 @@ public class T2MongoApi {
         "WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02' " +
         "GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) " +
         "ORDER BY OrderDate ASC;";
-      boolean results = s.executeQuery(query);
+      boolean results = s.execute(query);
       int rsCount = 0;
 
       do {
         if (results) {
-          ResultSet rs = stmt.getResultSet();
+          ResultSet rs = s.getResultSet();
           rsCount++;
 
           while (rs.next()) {
             JSONObject d = new JSONObject();
-            String[] od = rs.getString(1).split("-");
-            String orderDateModified = od[0] + "-" + String.format("%02d", Integer.parseInt(od[1]));
-            d.put("date", orderDateModified);
             if (rsCount == 1) {
+              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
+              d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("orders", rs.getDouble(2));
-              data.get("orders").add(d);
+              ((JSONArray)data.get("orders")).add(d);
             }
             else {
+              String[] od = rs.getString(1).split("-");
+              String orderDateModified = od[0] + "-" + String.format("%02d", Integer.parseInt(od[1]));
+              d.put("date", orderDateModified);
               d.put("revenue", rs.getDouble(2));
-              data.get("revenue").add(d);
+              ((JSONArray)data.get("revenue")).add(d);
             }
           }
           rs.close();
         }
-        results = stmt.getMoreResults();
+        results = s.getMoreResults();
       } while(results);
     }
     catch(Exception ex) {
@@ -138,24 +144,24 @@ public class T2MongoApi {
       String query =
         "SELECT " +
         "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  COUNT(*) AS \"TotalHits\" "
+        "  COUNT(*) AS \"TotalHits\" " +
         "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
       query +=
         "SELECT " +
         "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  COUNT(*) AS \"BounceRate\" "
+        "  COUNT(*) AS \"BounceRate\" " +
         "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"pages\": {$eq: 1}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
       query +=
         "SELECT " +
         "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  AVG(MongoData.session) AS \"AvgSessionTime\" " +
+        "  AVG(MongoData.\"session\") AS \"AvgSessionTime\" " +
         "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {$ne: \"127.0.0.1\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
-      boolean results = s.executeQuery(query);
+      boolean results = s.execute(query);
       int rsCount = 0;
 
       do {
         if (results) {
-          ResultSet rs = stmt.getResultSet();
+          ResultSet rs = s.getResultSet();
           rsCount++;
 
           while (rs.next()) {
@@ -163,20 +169,26 @@ public class T2MongoApi {
             d.put("date", rs.getString(1));
             if (rsCount == 1) {
               d.put("hits", rs.getDouble(2));
-              data.get("hits").add(d);
+              ((JSONArray)data.get("hits")).add(d);
             }
             else if (rsCount == 2) {
+              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
+              d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("bounces", rs.getDouble(2));
-              data.get("bounces").add(d);
+              ((JSONArray)data.get("bounces")).add(d);
             }
             else {
+              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
+              d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("session", rs.getDouble(2));
-              data.get("sessions").add(d);
+              ((JSONArray)data.get("sessions")).add(d);
             }
           }
           rs.close();
         }
-        results = stmt.getMoreResults();
+        results = s.getMoreResults();
       } while(results);
     }
     catch(Exception ex) {
@@ -213,18 +225,20 @@ public class T2MongoApi {
       String query =
         "SELECT " +
         "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  MIN(ms) AS \"MinPerf\", "
-        "  MAX(ms) AS \"MaxPerf\", "
-        "  AVG(ms) AS \"AvgPerf\" "
-        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
+        "  MongoData.\"page\" AS \"MyPage\", " +
+        "  MIN(MongoData.\"ms\") AS \"MinPerf\", " +
+        "  MAX(MongoData.\"ms\") AS \"MaxPerf\", " +
+        "  AVG(MongoData.\"ms\") AS \"AvgPerf\" " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate, MyPage ORDER BY TheDate ASC;";
       ResultSet rs = s.executeQuery(query);
       while (rs.next()) {
         JSONObject d = new JSONObject();
         d.put("date", rs.getString(1));
-        d.put("min", rs.getFloat(2));
-        d.put("max", rs.getFloat(3));
-        d.put("avg", rs.getFloat(4));
-        data.get("pages").add(d);
+        d.put("page", rs.getString(2));
+        d.put("min", rs.getFloat(3));
+        d.put("max", rs.getFloat(4));
+        d.put("avg", rs.getFloat(5));
+        ((JSONArray)data.get("pages")).add(d);
       }
 
       if (!rs.isClosed()) {
@@ -263,20 +277,20 @@ public class T2MongoApi {
       s = connection.createStatement();
 
       String query =
-        "SELECT OrderID, CustomerID, Order, DiscountCode, Total, Created " +
+        "SELECT OrderID, CustomerID, \"Order\", DiscountCode, Total, CAST(CAST(Created AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)) " +
         "FROM \"MyECommerce\".\"tdOrder\" " +
         "WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'" +
         "ORDER BY created ASC;";
       ResultSet rs = s.executeQuery(query);
       while (rs.next()) {
         JSONObject d = new JSONObject();
+        d.put("Created", rs.getString(6));
         d.put("OrderId", rs.getInt(1));
         d.put("CustomerId", rs.getInt(2));
         d.put("OrderNum", rs.getInt(3));
         d.put("DiscountCode", rs.getString(4));
-        d.put("Total", rs.getFloat(4));
-        d.put("Created", rs.getFloat(4));
-        data.get("transactions").add(d);
+        d.put("Total", rs.getFloat(5));
+        ((JSONArray)data.get("transactions")).add(d);
       }
 
       if (!rs.isClosed()) {
@@ -315,17 +329,17 @@ public class T2MongoApi {
       s = connection.createStatement();
 
       String query =
-        "SELECT COUNT(tdOrder.CustomerID), MongoData.referrer " +
-        "FROM \"MyECommerce\".\"tdOrder\", " +
-        "SELECT FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": tdOrder.CustomerID, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T"
-        "WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'" +
-        "GROUP BY MongoData.referrer ASC;";
+        "SELECT COUNT(*), CAST(MongoData.referrer AS VARCHAR(255)) " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {\"$regex\": \"^[0-9]+$\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "JOIN \"MyECommerce\".\"tdOrder\", " +
+        "ON created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete' AND CAST(MongoData.\"user\" AS INTEGER) = customerId " +
+        "GROUP BY MongoData.referrer;";
       ResultSet rs = s.executeQuery(query);
       while (rs.next()) {
         JSONObject d = new JSONObject();
-        d.put("Referrer", rs.getString(1));
-        d.put("Count", rs.getInt(2));
-        data.get("channels").add(d);
+        d.put("Referrer", rs.getString(2));
+        d.put("Count", rs.getInt(1));
+        ((JSONArray)data.get("channels")).add(d);
       }
 
       if (!rs.isClosed()) {

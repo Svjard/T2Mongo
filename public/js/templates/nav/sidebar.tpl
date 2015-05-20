@@ -27,4 +27,5 @@
       <li><a href="#/panel/channels"><span>Channels</span></a></li>
     </ul>
   </li>
+  <li><a href="#/panel/nextsteps"><i class="fa fa-paw"></i> <span>Next Steps</span></a></li>
 </ul>

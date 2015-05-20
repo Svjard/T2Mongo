@@ -10,24 +10,6 @@ function resize() {
   $('#page-container').height(h);
 }
 
-function loadItem (url, id, callback) {
-  $.ajax({
-    error: function (jqXHR, textStatus, errorThrown) {
-      if (callback !== void 0) {
-        callback(errorThrown);
-      }
-    },
-    success: function (data, textStatus, jqXHR) {
-      if (callback !== void 0) {
-        //App.data.platforms.set(data.platforms, { 'silent': true, 'remove': false });
-        //App.data.config = new App.models[data.config.type](data.config, { 'platforms': App.data.platforms, 'user': window.user, 'profile': App.data.profile });
-        callback();
-      }
-    },
-    url: 'rest/' + url + '/' + id
-  });
-}
-
 App.prototype.start = function() {
   App.core = new Marionette.Application();
 
@@ -61,7 +43,7 @@ App.prototype.start = function() {
 
         this.route(/^panel(?:\/([a-z]+))$/, 'panel', function (id) {
           App.core.main.show(new App.views['./views/main/panels/' + id.charAt(0).toUpperCase() + id.slice(1)]());
-          //changeNav(id);
+          //changeNav(id); // TODO
         });
 
         this.route(/^about$/, 'about', function () {

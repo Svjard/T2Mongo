@@ -20,9 +20,9 @@ NOTE: The minimum required TDBMS versions are:
 5. `tar -zxvf R-3.2.0.tar.gz`
 6. `cd R-3.2.0`
 7. First we must install an fortran compiler as is required by R. So run the following commands:
-  `wget https://Svjard@bitbucket.org/Svjard/t2mongo/openSUSE-11.0-Oss.repo.txt`
-  `cp openSUSE-11.0-Oss.repo.txt /etc/zypp/repos.d/openSUSE-11.0-Oss.repo`
-  `zypper in gcc-fortran`
+  `wget https://Svjard@bitbucket.org/Svjard/t2mongo/openSUSE-11.0-Oss.repo.txt  
+  cp openSUSE-11.0-Oss.repo.txt /etc/zypp/repos.d/openSUSE-11.0-Oss.repo  
+  zypper in gcc-fortran`  
   and follow the instructions to correctly downgrade to the proper packages.
 7. `./configure --with-readline=no --with-x=no`
 8. `make`
@@ -39,7 +39,6 @@ your username.
 4. `git clone https://Svjard@bitbucket.org/Svjard/t2mongo.git`
 5. `chmod 755 t2mongo/script.sh`
 6. `sudo t2mongo/script.sh`
-//17. Launch our Rest Server after install Java 1.7.
 
 ### How to run the demo
 

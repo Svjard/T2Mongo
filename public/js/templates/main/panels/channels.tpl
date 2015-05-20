@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h4>Overview</h4>
         <p>
-          Next we look the website performance data that is being streamed to our MongoDB instance and see if a potential problem with the website may be attributing to our drop in revenue.
+          So far we haven't found any clear problem so we look at all the transactions for Q2 which were not completed and try to identify a pattern in them.
         </p>
       </div>
     </div>
@@ -14,46 +14,24 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <code>
-          SELECT
-            CAST(month from created) as OrderMonth,
-            COUNT (total),
-            SUM (total) 
-          FROM "MyECommerce"."tdOrder"
-          WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-04-30'
-          GROUP BY OrderMonth
-          ORDER BY OrderMonth;
-        </code>
+          "SELECT COUNT(*), CAST(MongoData.referrer AS VARCHAR(255)) " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {\"$regex\": \"^[0-9]+$\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "JOIN \"MyECommerce\".\"tdOrder\", " +
+        "ON created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete' AND CAST(MongoData.\"user\" AS INTEGER) = customerId " +
+        "GROUP BY MongoData.referrer;";
       </div>
     </div>
   </div>
-  <div class="col-xs-6">
+  <div class="col-xs-12">
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
-        <h4>User Hits</h4>
-        <div id="user-hits-chart">
-          
-        </div>
+        <table>
+
+
+        </table>
       </div>
     </div>
   </div>
-  <div class="col-xs-6">
-    <div class="panel panel-primary panel-admin">
-      <div class="panel-body">
-        <h4>Bounce Rate</h4>
-        <div id="bounce-rate-chart">
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-6">
-    <div class="panel panel-primary panel-admin">
-      <div class="panel-body">
-        <h4>Avg. Session Time</h4>
-        <div id="session-time-chart">
-          
-        </div>
-      </div>
-    </div>
-  </div>
+
+
 </div>

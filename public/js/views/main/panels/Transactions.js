@@ -24,7 +24,8 @@ module.exports = Marionette.ItemView.extend({
 
         $(self.el).find('#table-transactions tbody').html(html);
       },
-      url: 'api/query5'
+      type: 'POST',
+      url: 'http://localhost:8055/api/query5'
     });
   }
 });

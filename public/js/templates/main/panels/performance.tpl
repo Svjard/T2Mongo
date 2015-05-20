@@ -16,12 +16,12 @@
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform some the aggregration queries if we want.</p>
         <code>
         <pre>
-        SELECT
-          TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
-          MIN(ms) AS "MinPerf",
-          MAX(ms) AS "MaxPerf",
-          AVG(ms) AS "AvgPerf"
-        FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;
+SELECT
+  TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
+  MIN(ms) AS "MinPerf",
+  MAX(ms) AS "MaxPerf",
+  AVG(ms) AS "AvgPerf"
+FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;
         </pre>
         </code>
       </div>

@@ -34,20 +34,20 @@ App.prototype.start = function() {
 
     $(document).ajaxStart(function() { window.Pace.restart(); });
 
-    App.core.header.show(new App.views['./views/nav/Header']({ 'model': new Backbone.Model({ 'title': pj.title }) }));
-    App.core.sidebar.show(new App.views['./views/nav/Sidebar']());
+    App.core.header.show(new App.views['views/nav/Header.js']({ 'model': new Backbone.Model({ 'title': pj.title }) }));
+    App.core.sidebar.show(new App.views['views/nav/Sidebar.js']());
 
     App.router = new (Backbone.Router.extend({
       initialize: function () {
         var self = this;
 
         this.route(/^panel(?:\/([a-z]+))$/, 'panel', function (id) {
-          App.core.main.show(new App.views['./views/main/panels/' + id.charAt(0).toUpperCase() + id.slice(1)]());
+          App.core.main.show(new App.views['views/main/panels/' + id.charAt(0).toUpperCase() + id.slice(1) + '.js']());
           //changeNav(id); // TODO
         });
 
         this.route(/^about$/, 'about', function () {
-          App.core.main.show(new App.views['./views/main/About']());
+          App.core.main.show(new App.views['views/main/About.js']());
         });
       }
     }))();

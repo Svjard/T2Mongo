@@ -13,16 +13,16 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <code>
-          SELECT
-            CAST(month from created) as OrderMonth,
-            COUNT (total),
-            SUM (total) 
-          FROM "MyECommerce"."tdOrder"
-          WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-04-30'
-          GROUP BY OrderMonth
-          ORDER BY OrderMonth;
-        </code>
+        <pre>
+SELECT
+  CAST(month from created) as OrderMonth,
+  COUNT (total),
+  SUM (total) 
+FROM "MyECommerce"."tdOrder"
+WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-04-30'
+GROUP BY OrderMonth
+ORDER BY OrderMonth;
+        </pre>
       </div>
     </div>
   </div>

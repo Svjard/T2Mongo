@@ -13,22 +13,20 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <code>
         <pre>
-        SELECT OrderID, CustomerID, Order, DiscountCode, Total, Created
-        FROM "MyECommerce"."tdOrder"
-        WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'
-        ORDER BY created ASC;
+SELECT OrderID, CustomerID, Order, DiscountCode, Total, Created
+FROM "MyECommerce"."tdOrder"
+WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'
+ORDER BY created ASC;
         </pre>
         <br>
         <pre>
-        SELECT b.name, b.description, b.start, b.end, a.code, a.amount
-        FROM "MyECommerce"."tdDiscount" a
-        JOIN "MyECommerce"."tdMarketingCampaign" b
-        ON a.campaignId = b.campaignId 
-        WHERE a.code = "qhubq";
+SELECT b.name, b.description, b.start, b.end, a.code, a.amount
+FROM "MyECommerce"."tdDiscount" a
+JOIN "MyECommerce"."tdMarketingCampaign" b
+ON a.campaignId = b.campaignId 
+WHERE a.code = "qhubq";
         </pre>
-        </code>
       </div>
     </div>
   </div>

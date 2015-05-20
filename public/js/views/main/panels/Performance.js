@@ -13,7 +13,8 @@ module.exports = Marionette.ItemView.extend({
       success: function (data, textStatus, jqXHR) {
         this.renderChart1(data);
       },
-      url: 'api/query4'
+      type: 'POST',
+      url: 'http://localhost:8055/api/query4'
     });
   },
   addAxes: function(svg, xAxis, yAxis, margin, chartWidth, chartHeight) {

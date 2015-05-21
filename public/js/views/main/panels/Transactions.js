@@ -14,16 +14,16 @@ module.exports = Marionette.ItemView.extend({
       success: function (data, textStatus, jqXHR) {
         var tableHtml = '';
         _.each(data.transactions, function(n) {
-          html += '<tr>';
-          html += '<td>' + n.Created + '</td>';
-          html += '<td>' + n.OrderId + '</td>';
-          html += '<td>' + n.CustomerId + '</td>';
-          html += '<td>' + n.OrderNum + '</td>';
-          html += '<td>' + n.Total + '</td>';
-          html += '</tr>';
+          tableHtml += '<tr>';
+          tableHtml += '<td>' + n.Created + '</td>';
+          tableHtml += '<td>' + n.OrderId + '</td>';
+          tableHtml += '<td>' + n.CustomerId + '</td>';
+          tableHtml += '<td>' + n.OrderNum + '</td>';
+          tableHtml += '<td>' + n.Total + '</td>';
+          tableHtml += '</tr>';
         });
 
-        $(self.el).find('#table-transactions tbody').html(html);
+        $(self.el).find('#table-transactions tbody').html(tableHtml);
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query5'

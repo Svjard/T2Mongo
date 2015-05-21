@@ -11,19 +11,18 @@ function resize() {
 }
 
 function changeNav(id) {
-  debugger;
   $('.acc-menu li').removeClass('open').removeClass('active');
   if (id === 'quarterly' || id === 'forecast') {
-    $('.acc-menu > li:nth-child(1)').addClass('open');
+    $('#revenue-menu-item').addClass('open');
   }
   else if (id === 'userstats' || id === 'performance') {
-    $('.acc-menu > li:nth-child(2)').addClass('open');
+    $('#website-menu-item').addClass('open');
   }
   else if (id === 'details' || id === 'channels') {
-    $('.acc-menu > li:nth-child(4)').addClass('open');
+    $('#campaigns-menu-item').addClass('open');
   }
 
-  $('a[href="#/panel/' + id + '"]').parent().addClass('active');
+  $('#' + id + '-menu-item').addClass('active');
 }
 
 App.prototype.start = function() {

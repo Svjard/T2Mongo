@@ -77,7 +77,7 @@ public class T2MongoApi {
             JSONObject d = new JSONObject();
             if (rsCount == 1) {
               System.err.println(rs.getString(1));
-              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-M");
+              SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("orders", rs.getDouble(2));
@@ -173,14 +173,14 @@ public class T2MongoApi {
               ((JSONArray)data.get("hits")).add(d);
             }
             else if (rsCount == 2) {
-              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("bounces", rs.getDouble(2));
               ((JSONArray)data.get("bounces")).add(d);
             }
             else {
-              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("session", rs.getDouble(2));

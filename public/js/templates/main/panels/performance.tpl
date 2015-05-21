@@ -32,9 +32,7 @@ FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 14200
       <div class="panel-body">
         <h4>Website Performance</h4>
         <p>
-          <select id="page" class="form-control">
-            <option value="SLES Linux 11">SLES Linux 11</option>
-            <option selected="" value="SLES Linux 10">SLES Linux 10</option>      
+          <select id="pages-dropdown" class="form-control"> 
           </select>
         </p>
         <div id="performance-chart">

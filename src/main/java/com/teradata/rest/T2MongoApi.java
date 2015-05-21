@@ -272,7 +272,6 @@ public class T2MongoApi {
     Statement s = null;
     JSONObject data = new JSONObject();
     data.put("transactions", new JSONArray());
-    data.put("discounts", new JSONArray());
 
     try {
       s = connection.createStatement();
@@ -282,12 +281,12 @@ public class T2MongoApi {
         "FROM \"MyECommerce\".\"tdOrder\" " +
         "WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'" +
         "ORDER BY created ASC;";
-      query += 
+      /*query += 
         "SELECT b.\"name\", b.description, CAST(CAST(b.\"start\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), CAST(CAST(b.\"end\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), a.code, a.amount " +
         "FROM \"MyECommerce\".\"tdDiscount\" a " +
         "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
         "ON a.campaignId = b.campaignId " +
-        "WHERE a.code = 'qhubq';";
+        "WHERE a.code = 'qhubq';";*/
       boolean results = s.execute(query);
       int rsCount = 0;
 
@@ -298,24 +297,13 @@ public class T2MongoApi {
 
           while (rs.next()) {
             JSONObject d = new JSONObject();
-            if (rsCount == 1) {
-              d.put("Created", rs.getString(6));
-              d.put("OrderId", rs.getInt(1));
-              d.put("CustomerId", rs.getInt(2));
-              d.put("OrderNum", rs.getInt(3));
-              d.put("DiscountCode", rs.getString(4));
-              d.put("Total", rs.getFloat(5));
-              ((JSONArray)data.get("transactions")).add(d);
-            }
-            else {
-              d.put("Name", rs.getString(1));
-              d.put("Description", rs.getString(2));
-              d.put("Start", rs.getString(3));
-              d.put("End", rs.getString(4));
-              d.put("Code", rs.getString(5));
-              d.put("Amount", rs.getFloat(6));
-              ((JSONArray)data.get("discounts")).add(d);
-            }
+            d.put("Created", rs.getString(6));
+            d.put("OrderId", rs.getInt(1));
+            d.put("CustomerId", rs.getInt(2));
+            d.put("OrderNum", rs.getInt(3));
+            d.put("DiscountCode", rs.getString(4));
+            d.put("Total", rs.getFloat(5));
+            ((JSONArray)data.get("transactions")).add(d);
           }
           rs.close();
         }
@@ -345,6 +333,66 @@ public class T2MongoApi {
   @Path("query6")
   @Produces(MediaType.APPLICATION_JSON)
   public Response query6() throws Exception {
+    Response rp = null;
+    Statement s = null;
+    JSONObject data = new JSONObject();
+    data.put("discounts", new JSONArray());
+
+    try {
+      s = connection.createStatement();
+
+      String query += 
+        "SELECT b.\"name\", b.description, CAST(CAST(b.\"start\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), CAST(CAST(b.\"end\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), a.code, a.amount " +
+        "FROM \"MyECommerce\".\"tdDiscount\" a " +
+        "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
+        "ON a.campaignId = b.campaignId " +
+        "WHERE a.code = 'qhubq';";*/
+      boolean results = s.execute(query);
+      int rsCount = 0;
+
+      do {
+        if (results) {
+          ResultSet rs = s.getResultSet();
+          rsCount++;
+
+          while (rs.next()) {
+            JSONObject d = new JSONObject();
+            d.put("Name", rs.getString(1));
+            d.put("Description", rs.getString(2));
+            d.put("Start", rs.getString(3));
+            d.put("End", rs.getString(4));
+            d.put("Code", rs.getString(5));
+            d.put("Amount", rs.getFloat(6));
+            ((JSONArray)data.get("discounts")).add(d);
+          }
+          rs.close();
+        }
+        results = s.getMoreResults();
+      } while(results);
+    }
+    catch(Exception ex) {
+      ex.printStackTrace();
+
+      rp = Response.status(Status.INTERNAL_SERVER_ERROR).build();
+    }
+    finally {
+      if (!s.isClosed()) {
+        s.close();
+      }
+
+      if (!connection.isClosed()) {
+        connection.close();
+      }
+    }
+
+    rp = Response.ok(data.toString()).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS").build();
+    return rp;
+  }
+
+  @POST
+  @Path("query7")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response query7() throws Exception {
     Response rp = null;
     Statement s = null;
     JSONObject data = new JSONObject();

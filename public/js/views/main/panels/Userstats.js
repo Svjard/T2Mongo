@@ -13,8 +13,8 @@ module.exports = Marionette.ItemView.extend({
       },
       success: function (data, textStatus, jqXHR) {
         self.renderChart1(data.hits);
-        self.renderChart2(data.bounces, '#bounce-rate-chart');
-        self.renderChart2(data.sessions, '#session-time-chart');
+        self.renderChart2(data.bounces, '#bounce-rate-chart', 'Bounces');
+        self.renderChart2(data.sessions, '#session-time-chart', 'Time (ms)');
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query3'
@@ -73,14 +73,14 @@ module.exports = Marionette.ItemView.extend({
         .attr('y', 6)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
-        .text('Revenue ($USD)');
+        .text('# of Hits');
 
     svg.append('path')
         .datum(data)
         .attr('class', 'line')
         .attr('d', line);
   },
-  renderChart2: function(data, chart) {
+  renderChart2: function(data, chart, xax) {
     var c = $(this.el).find(chart);
     var margin = {top: 20, right: 20, bottom: 30, left: 100},
         width = c.width() - margin.left - margin.right,
@@ -131,7 +131,7 @@ module.exports = Marionette.ItemView.extend({
         .attr('y', 6)
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
-        .text('Orders');
+        .text(xax);
 
     svg.selectAll('.bar')
         .data(data)

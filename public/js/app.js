@@ -10,6 +10,21 @@ function resize() {
   $('#page-container').height(h);
 }
 
+function changeNav(id) {
+  $('.acc-menu li').removeClass('open').removeClass('active');
+  if (id === 'quarterly' || id === 'forecast') {
+    $('.acc-menu > li:nth-child(1)').addClass('open');
+  }
+  else if (id === 'userstats' || id === 'performance') {
+    $('.acc-menu > li:nth-child(2)').addClass('open');
+  }
+  else if (id === 'details' || id === 'channels') {
+    $('.acc-menu > li:nth-child(4)').addClass('open');
+  }
+
+  $('a[href="#/panel/' + id + '"]').parent.addClass('active');
+}
+
 App.prototype.start = function() {
   App.core = new Marionette.Application();
 
@@ -43,11 +58,11 @@ App.prototype.start = function() {
 
         this.route(/^panel(?:\/([a-z]+))$/, 'panel', function (id) {
           App.core.main.show(new App.views['views/main/panels/' + id.charAt(0).toUpperCase() + id.slice(1) + '.js']());
-          //changeNav(id); // TODO
+          changeNav(id);
         });
 
-        this.route(/^about$/, 'about', function () {
-          App.core.main.show(new App.views['views/main/About.js']());
+        this.route(/^home$/, 'home', function () {
+          App.core.main.show(new App.views['views/main/Home.js']());
         });
       }
     }))();
@@ -56,7 +71,7 @@ App.prototype.start = function() {
 
     if (!Backbone.history.start()) {
       vent.trigger('app:log', 'App: Backbone.history starting');
-      App.router.navigate('#/about', { 'trigger': true });
+      App.router.navigate('#/home', { 'trigger': true });
     }
     
     vent.trigger('app:log', 'App: Done starting and running!');

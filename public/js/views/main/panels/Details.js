@@ -1,6 +1,33 @@
 /*global define*/
-var Marionette = require('marionette');
+var _ = require('underscore'),
+    Marionette = require('marionette');
 
 module.exports = Marionette.ItemView.extend({
-  template: require('../../../templates/main/panels/details.tpl')
+  template: require('../../../templates/main/panels/details.tpl'),
+  className: 'panel-view',
+  onShow: function() {
+    var self = this;
+    $.ajax({
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('Server Error');
+      },
+      success: function (data, textStatus, jqXHR) {
+        var tableHtml = '';
+        _.each(data.discounts, function(n) {
+          tableHtml += '<tr>';
+          tableHtml += '<td>' + n.Name + '</td>';
+          tableHtml += '<td>' + n.Description + '</td>';
+          tableHtml += '<td>' + n.Start + '</td>';
+          tableHtml += '<td>' + n.End + '</td>';
+          tableHtml += '<td>' + n.Code + '</td>';
+          tableHtml += '<td>' + n.Amount + '</td>';
+          tableHtml += '</tr>';
+        });
+
+        $(self.el).find('#table-discounts tbody').html(tableHtml);
+      },
+      type: 'POST',
+      url: 'http://192.168.11.130:8055/api/query6'
+    });
+  }
 });

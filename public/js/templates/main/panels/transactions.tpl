@@ -55,29 +55,4 @@ WHERE a.code = 'qhubq';
       </div>
     </div>
   </div>
-  <div class="col-xs-12">
-    <div class="panel panel-primary panel-admin">
-      <div class="panel-body">
-        <h4>Marketing Campaign Information</h4>
-        <div class="table-responsive" style="height: 250px;">
-          <table id="table-discounts" class="table table-striped table-hover table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Discount Code</th>
-                <th>Discount %</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

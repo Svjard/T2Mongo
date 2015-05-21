@@ -14,12 +14,12 @@
         </p>
         <h4>Setting up QueryGrid</h4>
         <pre>
-          CREATE FOREGIN SERVER TD_SERVER_DB.Mongo USING
-            hosttype('mongodb')
-            remotehost('192.168.11.130')
-            port(27017)
-            tableopdebug(1)
-          DO IMPORT WITH SYSLIB.LOAD_FROM_MONGO
+CREATE FOREGIN SERVER TD_SERVER_DB.Mongo USING
+  hosttype('mongodb')
+  remotehost('192.168.11.130')
+  port(27017)
+  tableopdebug(1)
+DO IMPORT WITH SYSLIB.LOAD_FROM_MONGO
         </pre>
         <h4 style="margin: 0;">History</h4>
         <div class="releases" style="font-size: 11px;">

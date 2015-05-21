@@ -8,8 +8,8 @@
   </div>
   <ul class="nav navbar-nav pull-right toolbar">
     <li style="border-left: 1px solid #27292d;">
-      <a href="#/about" style="padding-top: 12px !important;padding-bottom: 12px !important;">
-        <span><i class="fa fa-question"></i></span>
+      <a href="#/home" style="padding-top: 12px !important;padding-bottom: 12px !important;">
+        <span><i class="fa fa-home"></i></span>
       </a>
     </li>
   </ul>

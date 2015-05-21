@@ -12,7 +12,24 @@ module.exports = Marionette.ItemView.extend({
         alert('Server Error');
       },
       success: function (data, textStatus, jqXHR) {
-        this.renderChart1(data);
+        var selectHtml = '', pages = {};
+        _.each(data.pages, function(n) {
+          if (pages[n.page] === void 0) {
+            pages[n.page] = true;
+          }
+        });
+
+        _.each(_.keys(pages).sort(), function(n, i) {
+          if (i === 0) {
+            self.currentPage = n
+          }
+          selectHtml += '<option value="' + n + '">' + n + '</option>';
+        });
+
+        $(self.el).find('#pages-dropdown').html(selectHtml);
+
+        self.cache = data.pages;
+        this.renderChart1();
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query4'
@@ -83,46 +100,25 @@ module.exports = Marionette.ItemView.extend({
       .attr('d', medianLine)
       .attr('clip-path', 'url(#rect-clip)');
   },
-  renderChart1: function(data) {
-    var parseDate  = d3.time.format('%Y-%m-%d').parse;
-    d3.json('data.json', function (error, rawData) {
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      var data = rawData.map(function (d) {
-        return {
-          date:  parseDate(d.date),
-          pct05: d.pct05 / 1000,
-          pct25: d.pct25 / 1000,
-          pct50: d.pct50 / 1000,
-          pct75: d.pct75 / 1000,
-          pct95: d.pct95 / 1000
-        };
-      });
-
-      d3.json('markers.json', function (error, markerData) {
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        var markers = markerData.map(function (marker) {
-          return {
-            date: parseDate(marker.date),
-            type: marker.type,
-            version: marker.version
-          };
-        });
-
-        makeChart(data, markers);
-      });
+  renderChart1: function() {
+    
+    var self = this;
+    var data = _.find(this.cache, function(n) {
+      return n.page === self.currentPage;
     });
 
-    var svgWidth  = 960,
-        svgHeight = 500,
-        margin = { top: 20, right: 20, bottom: 40, left: 40 },
+    var parseDate  = d3.time.format('%Y-%m').parse;
+    data.forEach(function(d) {
+      d.date = parseDate(d.date);
+      d.max = +d.max;
+      d.avg = +d.avg;
+      d.min = +d.min;
+    });
+
+    var c = $(this.el).find('#performance-chart');
+    var svgWidth  = c.width(),
+        svgHeight = 320,
+        margin = { top: 20, right: 20, bottom: 40, left: 100 },
         chartWidth  = svgWidth  - margin.left - margin.right,
         chartHeight = svgHeight - margin.top  - margin.bottom;
 

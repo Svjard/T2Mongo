@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h4>Overview</h4>
         <p>
-          We first look at our some our website statistics to better understand if the drop in revenue may be attributed to a drop in website traffic or some user behavior trend that seems out of the ordinary compared to last quarter. To do this we leverage the Query Grid's T2Mongo connector and query data in MongoDB by running our query on Teradata and performing push down to MongoDB.
+          You first look at some of the website statistics to better understand if the drop in revenue may be attributed to a drop in website traffic or some user behavior trend that seems out of the ordinary compared to last quarter. To do this we leverage the Query Grid's T2Mongo connector so that we can pass thru a native MongoDB query which is lets us qualify and project the data within our MongoDB cluster. The data is then sent in parallel back to Teradata where we can run standard SQL grammar against it.
         </p>
       </div>
     </div>
@@ -13,14 +13,14 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform some the aggregration queries if we want.</p>
+        <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform the aggregations but aggregrate queries must be in run in serial.</p>
         <pre>
-SELECT
-  TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
+<span style="color: rgb(127,58,175);">SELECT</span>
+  TRIM(CAST(<b>MongoData."fdate"</b> <span style="color: rgb(127,58,175);">AS</span> VARCHAR(50))) <span style="color: rgb(127,58,175);">AS</span> "TheDate",
   COUNT(*) AS "TotalHits"
-FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
-GROUP BY TheDate
-ORDER BY TheDate ASC;
+<span style="color: rgb(127,58,175);">FROM</span> FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
+<span style="color: rgb(127,58,175);">GROUP BY</span> TheDate
+<span style="color: rgb(127,58,175);">ORDER BY</span> TheDate <span style="color: rgb(127,58,175);">ASC</span>;
         </pre>
         <br>
         <pre>

@@ -23,8 +23,8 @@
       <i class="fa fa-th"></i> <span>Marketing Campaigns</span>
     </a>
     <ul class="acc-menu">
-      <li id="details-menu-item"><a href="#/panel/details"><span>Details</span></a></li>
       <li id="channels-menu-item"><a href="#/panel/channels"><span>Channels</span></a></li>
+      <li id="details-menu-item"><a href="#/panel/details"><span>Campaign Details</span></a></li>
     </ul>
   </li>
   <li id="nextsteps-menu-item"><a href="#/panel/nextsteps"><i class="fa fa-paw"></i> <span>Next Steps</span></a></li>

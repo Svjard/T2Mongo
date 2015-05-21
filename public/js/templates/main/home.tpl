@@ -33,7 +33,7 @@ DO IMPORT WITH SYSLIB.LOAD_FROM_MONGO
           </div>
         </div>
         <div style="text-align: center;">
-          <button class="btn btn-lg btn-primary">Begin Demo</button>
+          <a href="#/panel/quarterly" class="btn btn-lg btn-primary">Begin Demo</a>
         </div>
       </div>
     </div>

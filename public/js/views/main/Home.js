@@ -7,7 +7,8 @@ module.exports = Marionette.ItemView.extend({
   events: {
     'click #history-title' : 'onHistoryToggle'
   },
-  onHistoryToggle: function() {
+  onHistoryToggle: function(ev) {
+    $(ev.currentTarget).find('i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
     $(this.el).find('#history-section').toggle();
   }
 });

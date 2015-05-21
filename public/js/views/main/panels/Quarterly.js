@@ -7,6 +7,7 @@ module.exports = Marionette.ItemView.extend({
   className: 'panel-view',
   onShow: function() {
     var self = this;
+    window.Pace.start();
     $.ajax({
       error: function (jqXHR, textStatus, errorThrown) {
         alert('Server Error');

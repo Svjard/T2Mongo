@@ -2181,16 +2181,22 @@ public class DataGenerator {
 
         int ch = (int)randLong(1L, 100L);
         if (ch < 68) {
-          discount = "foo";
+          discount = "----";
         }
         else {
           int d = (int)randLong(1L, 100L);
           if (d < 43) {
-            discount = campaigns.get(0);
+            int nd = (int)randLong(1L, 100L);
+            if (nd <= 40) {
+              discount = campaigns.get(0);
+            }
+            else {
+              discount = "----";
+            }
             status = "incomplete";
           }
           else {
-            discount = "foo";
+            discount = "----";
           }
         }
       }

@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h4>Overview</h4>
         <p>
-          The CFO of TeradataLovesDogs.com has been monitoring quarterly revenue via their real-time dashboard. They notice Q2 revenue for 2015 does not appear as promising as expected and far below what was seen in Q1. They ask you, one of the financial analysts, to dig deeper into the data, find out what is wrong and present them with proposals to remedy the situation by Friday afternoon. 
+          The CFO of TeradataLovesDogs.com has been monitoring quarterly revenue via their real-time dashboard. They notice Q2 revenue for 2015 does not appear as promising as expected and far below what was seen in Q1. They ask you, one of the financial analysts, to dig deeper into the data, find out what is wrong and present them with proposals to remedy the situation by Friday afternoon.
         </p>
       </div>
     </div>
@@ -15,13 +15,13 @@
         <h4>Query Set</h4>
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture.</p>
         <pre>
-SELECT
-  TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) as OrderDate,
-  COUNT (*)
-FROM "MyECommerce"."tdOrder"
-WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
-GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
-ORDER BY OrderDate ASC;
+<span style="color: rgb(127,58,175);">SELECT</span>
+  <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">year from</span> created)) || <span style="color: rgb(0,0,255);">'-'</span> || <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">month from</span> created)) <span style="color: rgb(127,58,175);">AS</span> OrderDate,
+  <span style="color: rgb(0,0,128);">COUNT</span> (*)
+<span style="color: rgb(127,58,175);">FROM</span> <span style="color: rgb(127,58,175);">"MyECommerce"</span>.<span style="color: rgb(127,58,175);">"tdOrder"</span>
+<span style="color: rgb(127,58,175);">WHERE</span> created <span style="color: rgb(127,58,175);">BETWEEN</span> <span style="color: rgb(64,0,200);">DATE</span> <span style="color: rgb(0,0,255);">'2015-01-01'</span> AND <span style="color: rgb(64,0,200);">DATE</span> <span style="color: rgb(0,0,255);">'2015-06-02'</span>
+<span style="color: rgb(127,58,175);">GROUP BY</span> <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">year from</span> created)) || <span style="color: rgb(0,0,255);">'-'</span> || <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(month from created))
+<span style="color: rgb(127,58,175);">ORDER BY</span> OrderDate <span style="color: rgb(127,58,175);">ASC</span>;
         </pre>
         <br>
         <pre>

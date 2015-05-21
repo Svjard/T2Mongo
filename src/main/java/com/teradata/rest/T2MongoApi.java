@@ -76,7 +76,8 @@ public class T2MongoApi {
           while (rs.next()) {
             JSONObject d = new JSONObject();
             if (rsCount == 1) {
-              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-MM");
+              System.err.println(rs.getString(1));
+              SimpleDateFormat dsf = new SimpleDateFormat("YYYY-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
               d.put("orders", rs.getDouble(2));

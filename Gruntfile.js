@@ -187,5 +187,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('init', ['clean', 'bower', 'browserify:vendor']);
-  grunt.registerTask('build', ['clean', 'browserify:vendor', 'browserify:app',  'less:transpile', 'concat', 'cssmin', 'uglify', 'copy']);
+  //grunt.registerTask('build', ['clean', 'browserify:vendor', 'browserify:app',  'less:transpile', 'concat', 'cssmin', 'uglify', 'copy']);
+  grunt.registerTask('build', ['clean', 'browserify:vendor', 'browserify:app',  'less:transpile', 'concat', 'cssmin', 'copy']);
 };

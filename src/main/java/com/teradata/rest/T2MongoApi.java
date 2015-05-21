@@ -169,7 +169,7 @@ public class T2MongoApi {
             JSONObject d = new JSONObject();
             if (rsCount == 1) {
               d.put("date", rs.getString(1));
-              int random = (int )(Math.random() * 50 + 1);
+              int random = (int )(Math.random() * 150 + 1);
               if (Math.random() < 0.5) {
                 d.put("value", rs.getInt(2) - random);
               }

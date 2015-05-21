@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h4>Overview</h4>
         <p>
-          Now that we have identified our problem there are several steps we can take as a business to re-engage our customers and help propel Q2 revenue towards our goals.
+          Now that you have identified the likely problem there are several steps you propose to the CFO to re-engage our customers and help propel Q2 revenue towards our goals.
         </p>
       </div>
     </div>

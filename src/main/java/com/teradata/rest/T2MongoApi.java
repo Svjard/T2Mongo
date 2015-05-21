@@ -288,12 +288,6 @@ public class T2MongoApi {
         "FROM \"MyECommerce\".\"tdOrder\" " +
         "WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'" +
         "ORDER BY created ASC;";
-      /*query += 
-        "SELECT b.\"name\", b.description, CAST(CAST(b.\"start\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), CAST(CAST(b.\"end\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), a.code, a.amount " +
-        "FROM \"MyECommerce\".\"tdDiscount\" a " +
-        "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
-        "ON a.campaignId = b.campaignId " +
-        "WHERE a.code = 'qhubq';";*/
       boolean results = s.execute(query);
       int rsCount = 0;
 
@@ -343,6 +337,55 @@ public class T2MongoApi {
     Response rp = null;
     Statement s = null;
     JSONObject data = new JSONObject();
+    data.put("channels", new JSONArray());
+
+    try {
+      s = connection.createStatement();
+
+      String query =
+        "SELECT COUNT(*), CAST(MongoData.referrer AS VARCHAR(255)) " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {\"$regex\": \"^[0-9]+$\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "JOIN \"MyECommerce\".\"tdOrder\", " +
+        "ON created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete' AND CAST(MongoData.\"user\" AS INTEGER) = customerId " +
+        "GROUP BY MongoData.referrer;";
+      ResultSet rs = s.executeQuery(query);
+      while (rs.next()) {
+        JSONObject d = new JSONObject();
+        d.put("Referrer", rs.getString(2));
+        d.put("Count", rs.getInt(1));
+        ((JSONArray)data.get("channels")).add(d);
+      }
+
+      if (!rs.isClosed()) {
+        rs.close();
+      }
+    }
+    catch(Exception ex) {
+      ex.printStackTrace();
+
+      rp = Response.status(Status.INTERNAL_SERVER_ERROR).build();
+    }
+    finally {
+      if (!s.isClosed()) {
+        s.close();
+      }
+
+      if (!connection.isClosed()) {
+        connection.close();
+      }
+    }
+
+    rp = Response.ok(data.toString()).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS").build();
+    return rp;
+  }
+
+  @POST
+  @Path("query7")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response query7() throws Exception {
+    Response rp = null;
+    Statement s = null;
+    JSONObject data = new JSONObject();
     data.put("discounts", new JSONArray());
 
     try {
@@ -376,55 +419,6 @@ public class T2MongoApi {
         }
         results = s.getMoreResults();
       } while(results);
-    }
-    catch(Exception ex) {
-      ex.printStackTrace();
-
-      rp = Response.status(Status.INTERNAL_SERVER_ERROR).build();
-    }
-    finally {
-      if (!s.isClosed()) {
-        s.close();
-      }
-
-      if (!connection.isClosed()) {
-        connection.close();
-      }
-    }
-
-    rp = Response.ok(data.toString()).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS").build();
-    return rp;
-  }
-
-  @POST
-  @Path("query7")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response query7() throws Exception {
-    Response rp = null;
-    Statement s = null;
-    JSONObject data = new JSONObject();
-    data.put("channels", new JSONArray());
-
-    try {
-      s = connection.createStatement();
-
-      String query =
-        "SELECT COUNT(*), CAST(MongoData.referrer AS VARCHAR(255)) " +
-        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {\"$regex\": \"^[0-9]+$\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
-        "JOIN \"MyECommerce\".\"tdOrder\", " +
-        "ON created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete' AND CAST(MongoData.\"user\" AS INTEGER) = customerId " +
-        "GROUP BY MongoData.referrer;";
-      ResultSet rs = s.executeQuery(query);
-      while (rs.next()) {
-        JSONObject d = new JSONObject();
-        d.put("Referrer", rs.getString(2));
-        d.put("Count", rs.getInt(1));
-        ((JSONArray)data.get("channels")).add(d);
-      }
-
-      if (!rs.isClosed()) {
-        rs.close();
-      }
     }
     catch(Exception ex) {
       ex.printStackTrace();

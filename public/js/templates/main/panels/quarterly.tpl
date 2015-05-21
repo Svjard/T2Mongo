@@ -21,8 +21,7 @@ SELECT
 FROM "MyECommerce"."tdOrder"
 WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
 GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
-ORDER BY OrderDate ASC;
-        </textarea>
+ORDER BY OrderDate ASC;</textarea>
         <br>
         <textarea id="block2">
 SELECT
@@ -31,8 +30,7 @@ SELECT
 FROM "MyECommerce"."tdOrder"
 WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
 GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
-ORDER BY OrderDate ASC;
-        </textarea>
+ORDER BY OrderDate ASC;</textarea>
       </div>
     </div>
   </div>

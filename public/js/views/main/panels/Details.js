@@ -6,6 +6,16 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/details.tpl'),
   className: 'panel-view',
   onShow: function() {
+    _.each(_.range(1), function(n) {
+      CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: 'eclipse',
+        mode: 'text/x-sql'
+      });
+    });
+
     var self = this;
     $.ajax({
       error: function (jqXHR, textStatus, errorThrown) {
@@ -27,7 +37,7 @@ module.exports = Marionette.ItemView.extend({
         $(self.el).find('#table-discounts tbody').html(tableHtml);
       },
       type: 'POST',
-      url: 'http://192.168.11.130:8055/api/query6'
+      url: 'http://192.168.11.130:8055/api/query7'
     });
   }
 });

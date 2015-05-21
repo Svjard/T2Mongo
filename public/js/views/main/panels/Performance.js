@@ -6,6 +6,16 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/performance.tpl'),
   className: 'panel-view',
   onShow: function() {
+    _.each(_.range(1), function(n) {
+      CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: 'eclipse',
+        mode: 'text/x-sql'
+      });
+    });
+
     var self = this;
     $.ajax({
       error: function (jqXHR, textStatus, errorThrown) {
@@ -29,7 +39,7 @@ module.exports = Marionette.ItemView.extend({
         $(self.el).find('#pages-dropdown').html(selectHtml);
 
         self.cache = data.pages;
-        this.renderChart1();
+        self.renderChart1();
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query4'
@@ -101,7 +111,6 @@ module.exports = Marionette.ItemView.extend({
       .attr('clip-path', 'url(#rect-clip)');
   },
   renderChart1: function() {
-    
     var self = this;
     var data = _.find(this.cache, function(n) {
       return n.page === self.currentPage;

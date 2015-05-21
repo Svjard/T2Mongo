@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h4>Overview</h4>
         <p>
-          We noticed a certain discount code is coming up quite often in the incomplete transactions so we JOIN against our current marketing campaigns to find out more about it. It appears the email sent does not fit the actual discount amount that was supposed to be applied or vice-versa.
+          Now that you have a specific campaign ID to investigate, you pull up that campaign information from the Teradata database to find out more about it. You immediately spot a problem. It appears the email sent does not fit the actual discount amount that was supposed to be applied or vice-versa. Now you have strong evidence to conclude that the Q2 drop in revenue was due to users abadoning transactions mid-stream after the discount code they applied to their order did not return the percentage off they were promised.
         </p>
       </div>
     </div>

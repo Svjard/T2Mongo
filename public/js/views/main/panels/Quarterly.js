@@ -114,7 +114,7 @@ module.exports = Marionette.ItemView.extend({
 
     //svg.call(tip);
 
-    x.domain(data.map(function(d) { return d.month; }));
+    x.domain(data.map(function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.orders; })]);
 
     svg.append('g')
@@ -136,7 +136,7 @@ module.exports = Marionette.ItemView.extend({
         .data(data)
       .enter().append('rect')
         .attr('class', 'bar')
-        .attr('x', function(d) { return x(d.month); })
+        .attr('x', function(d) { return x(d.date); })
         .attr('width', x.rangeBand())
         .attr('y', function(d) { return y(d.orders); })
         .attr('height', function(d) { return height - y(d.orders); });

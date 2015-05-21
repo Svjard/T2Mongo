@@ -14,21 +14,26 @@
         </p>
         <h4>Setting up QueryGrid</h4>
         <pre>
-CREATE FOREGIN SERVER TD_SERVER_DB.Mongo USING
+CREATE FOREIGN SERVER TD_SERVER_DB.Mongo USING
   hosttype('mongodb')
   remotehost('192.168.11.130')
   port(27017)
   tableopdebug(1)
 DO IMPORT WITH SYSLIB.LOAD_FROM_MONGO
         </pre>
-        <h4 style="margin: 0;">History</h4>
-        <div class="releases" style="font-size: 11px;">
+        <h4 id="history-title" style="margin: 0;cursor: pointer;">
+          History <i class="fa fa-caret-up"></i>
+        </h4>
+        <div id="history-section" class="releases" style="font-size: 11px;display: none;">
           <div class="release">
             <h6>Version 1.0.0Alpha <span>(2015-06-01)</span>:</h6>
             <ul>
               <li>Initial release</li>
             </ul>
           </div>
+        </div>
+        <div style="text-align: center;">
+          <button class="btn btn-lg btn-primary">Begin Demo</button>
         </div>
       </div>
     </div>

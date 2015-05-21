@@ -12,14 +12,15 @@ function resize() {
 
 function changeNav(id) {
   $('.acc-menu li').removeClass('open').removeClass('active');
+  $('#revenue-menu-item, #website-menu-item, #campaigns-menu-item').find('.acc-menu').css('display', 'none');
   if (id === 'quarterly' || id === 'forecast') {
-    $('#revenue-menu-item').addClass('open');
+    $('#revenue-menu-item').addClass('open').find('.acc-menu').css('display', 'block');
   }
   else if (id === 'userstats' || id === 'performance') {
-    $('#website-menu-item').addClass('open');
+    $('#website-menu-item').addClass('open').find('.acc-menu').css('display', 'block');
   }
   else if (id === 'details' || id === 'channels') {
-    $('#campaigns-menu-item').addClass('open');
+    $('#campaigns-menu-item').addClass('open').find('.acc-menu').css('display', 'block');
   }
 
   $('#' + id + '-menu-item').addClass('active');

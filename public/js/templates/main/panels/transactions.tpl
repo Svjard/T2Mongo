@@ -35,7 +35,7 @@ WHERE a.code = "qhubq";
       <div class="panel-body">
         <h4>Incomplete Transactions for Q2</h4>
         <div class="table-responsive">
-          <table id="table-transactions" class="table table-striped table-hover table-condensed">
+          <table id="table-transactions" class="table table-striped table-hover table-condensed" style="height: 250px;overflow-y: auto;">
             <thead>
               <tr>
                 <th>Timestamp</th>

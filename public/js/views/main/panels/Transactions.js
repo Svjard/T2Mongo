@@ -19,6 +19,7 @@ module.exports = Marionette.ItemView.extend({
           tableHtml += '<td>' + n.OrderId + '</td>';
           tableHtml += '<td>' + n.CustomerId + '</td>';
           tableHtml += '<td>' + n.OrderNum + '</td>';
+          tableHtml += '<td>' + n.DiscountCode + '</td>';
           tableHtml += '<td>' + n.Total + '</td>';
           tableHtml += '</tr>';
         });

@@ -79,14 +79,14 @@ public class T2MongoApi {
               SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
-              d.put("orders", rs.getDouble(2));
+              d.put("value", rs.getDouble(2));
               ((JSONArray)data.get("orders")).add(d);
             }
             else {
               String[] od = rs.getString(1).split("-");
               String orderDateModified = od[0] + "-" + String.format("%02d", Integer.parseInt(od[1]));
               d.put("date", orderDateModified);
-              d.put("revenue", rs.getDouble(2));
+              d.put("value", rs.getDouble(2));
               ((JSONArray)data.get("revenue")).add(d);
             }
           }
@@ -166,23 +166,23 @@ public class T2MongoApi {
 
           while (rs.next()) {
             JSONObject d = new JSONObject();
-            d.put("date", rs.getString(1));
             if (rsCount == 1) {
-              d.put("hits", rs.getDouble(2));
+              d.put("date", rs.getString(1));
+              d.put("value", rs.getDouble(2));
               ((JSONArray)data.get("hits")).add(d);
             }
             else if (rsCount == 2) {
               SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
-              d.put("bounces", rs.getDouble(2));
+              d.put("value", rs.getDouble(2));
               ((JSONArray)data.get("bounces")).add(d);
             }
             else {
               SimpleDateFormat dsf = new SimpleDateFormat("yyyy-M");
               java.util.Date dt = dsf.parse(rs.getString(1), new ParsePosition(0));
               d.put("month", new SimpleDateFormat("MMM").format(dt.getTime()));
-              d.put("session", rs.getDouble(2));
+              d.put("value", rs.getDouble(2));
               ((JSONArray)data.get("sessions")).add(d);
             }
           }
@@ -272,6 +272,7 @@ public class T2MongoApi {
     Statement s = null;
     JSONObject data = new JSONObject();
     data.put("transactions", new JSONArray());
+    data.put("discounts", new JSONArray());
 
     try {
       s = connection.createStatement();
@@ -281,21 +282,45 @@ public class T2MongoApi {
         "FROM \"MyECommerce\".\"tdOrder\" " +
         "WHERE created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' AND status = 'incomplete'" +
         "ORDER BY created ASC;";
-      ResultSet rs = s.executeQuery(query);
-      while (rs.next()) {
-        JSONObject d = new JSONObject();
-        d.put("Created", rs.getString(6));
-        d.put("OrderId", rs.getInt(1));
-        d.put("CustomerId", rs.getInt(2));
-        d.put("OrderNum", rs.getInt(3));
-        d.put("DiscountCode", rs.getString(4));
-        d.put("Total", rs.getFloat(5));
-        ((JSONArray)data.get("transactions")).add(d);
-      }
+      query += 
+        "SELECT b.\"name\", b.description, CAST(CAST(b.\"start\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), CAST(CAST(b.\"end\" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), a.code, a.amount " +
+        "FROM \"MyECommerce\".\"tdDiscount\" a " +
+        "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
+        "ON a.campaignId = b.campaignId " +
+        "WHERE a.code = 'qhubq';";
+      boolean results = s.execute(query);
+      int rsCount = 0;
 
-      if (!rs.isClosed()) {
-        rs.close();
-      }
+      do {
+        if (results) {
+          ResultSet rs = s.getResultSet();
+          rsCount++;
+
+          while (rs.next()) {
+            JSONObject d = new JSONObject();
+            if (rsCount == 1) {
+              d.put("Created", rs.getString(6));
+              d.put("OrderId", rs.getInt(1));
+              d.put("CustomerId", rs.getInt(2));
+              d.put("OrderNum", rs.getInt(3));
+              d.put("DiscountCode", rs.getString(4));
+              d.put("Total", rs.getFloat(5));
+              ((JSONArray)data.get("transactions")).add(d);
+            }
+            else {
+              d.put("Name", rs.getString(1));
+              d.put("Description", rs.getString(2));
+              d.put("Start", rs.getString(3));
+              d.put("End", rs.getString(4));
+              d.put("Code", rs.getString(5));
+              d.put("Amount", rs.getFloat(6));
+              ((JSONArray)data.get("discounts")).add(d);
+            }
+          }
+          rs.close();
+        }
+        results = s.getMoreResults();
+      } while(results);
     }
     catch(Exception ex) {
       ex.printStackTrace();

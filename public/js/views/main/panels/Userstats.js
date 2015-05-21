@@ -14,7 +14,7 @@ module.exports = Marionette.ItemView.extend({
       success: function (data, textStatus, jqXHR) {
         self.renderChart1(data.hits);
         self.renderChart2(data.bounces, '#bounce-rate-chart');
-        self.renderChart3(data.sessions, '#session-time-chart');
+        self.renderChart2(data.sessions, '#session-time-chart');
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query3'
@@ -44,7 +44,7 @@ module.exports = Marionette.ItemView.extend({
 
     var line = d3.svg.line()
         .x(function(d) { return x(d.date); })
-        .y(function(d) { return y(d.revenue); });
+        .y(function(d) { return y(d.value); });
 
     var svg = d3.select('#user-hits-chart').append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -54,11 +54,11 @@ module.exports = Marionette.ItemView.extend({
 
     data.forEach(function(d) {
       d.date = parseDate(d.date);
-      d.revenue = +d.revenue;
+      d.value = +d.value;
     });
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain(d3.extent(data, function(d) { return d.revenue; }));
+    y.domain(d3.extent(data, function(d) { return d.value; }));
 
     svg.append('g')
         .attr('class', 'x axis')
@@ -116,7 +116,7 @@ module.exports = Marionette.ItemView.extend({
     //svg.call(tip);
 
     x.domain(data.map(function(d) { return d.month; }));
-    y.domain([0, d3.max(data, function(d) { return d.orders; })]);
+    y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
     svg.append('g')
         .attr('class', 'x axis')
@@ -139,13 +139,13 @@ module.exports = Marionette.ItemView.extend({
         .attr('class', 'bar')
         .attr('x', function(d) { return x(d.month); })
         .attr('width', x.rangeBand())
-        .attr('y', function(d) { return y(d.orders); })
-        .attr('height', function(d) { return height - y(d.orders); });
+        .attr('y', function(d) { return y(d.value); })
+        .attr('height', function(d) { return height - y(d.value); });
       //.on('mouseover', tip.show)
       //.on('mouseout', tip.hide);
 
     function type(d) {
-      d.orders = +d.orders;
+      d.value = +d.value;
       return d;
     }
   }

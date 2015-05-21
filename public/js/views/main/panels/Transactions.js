@@ -25,6 +25,20 @@ module.exports = Marionette.ItemView.extend({
         });
 
         $(self.el).find('#table-transactions tbody').html(tableHtml);
+
+        tableHtml = '';
+        _.each(data.discounts, function(n) {
+          tableHtml += '<tr>';
+          tableHtml += '<td>' + n.Name + '</td>';
+          tableHtml += '<td>' + n.Description + '</td>';
+          tableHtml += '<td>' + n.Start + '</td>';
+          tableHtml += '<td>' + n.End + '</td>';
+          tableHtml += '<td>' + n.Code + '</td>';
+          tableHtml += '<td>' + n.Amount + '</td>';
+          tableHtml += '</tr>';
+        });
+
+        $(self.el).find('#table-discounts tbody').html(tableHtml);
       },
       type: 'POST',
       url: 'http://192.168.11.130:8055/api/query5'

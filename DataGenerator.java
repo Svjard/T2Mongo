@@ -2187,7 +2187,7 @@ public class DataGenerator {
           int d = (int)randLong(1L, 100L);
           if (d < 43) {
             int nd = (int)randLong(1L, 100L);
-            if (nd <= 40) {
+            if (nd <= 75) {
               discount = campaigns.get(0);
             }
             else {

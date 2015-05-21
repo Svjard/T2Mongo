@@ -12,6 +12,7 @@
     "backbone-validation": "*",
     "bootstrap": "3.3.2",
     "bootstrap-datepicker": "*",
+    "codemirror": "*",
     "d3": "*",
     "font-awesome": "*",
     "jquery": "*",

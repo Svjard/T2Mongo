@@ -27,6 +27,8 @@ module.exports = function(grunt) {
           'public/vendor/backbone/backbone.js',
           'public/vendor/bootstrap/dist/js/bootstrap.js',
           'public/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
+          'public/vendor/codemirror/lib/codemirror.js',
+          'public/vendor/codemirror/mode/sql/sql.js',
           'public/vendor/d3/d3.js',
           'public/vendor/jquery/dist/jquery.js',
           'public/vendor/lodash/lodash.js',
@@ -60,6 +62,17 @@ module.exports = function(grunt) {
               depends: {
                 bootstrap: 'bootstrap',
                 jquery: 'jQuery'
+              }
+            },
+            codemirror: {
+              path: 'public/vendor/codemirror/lib/codemirror.js',
+              exports: 'CodeMirror'
+            },
+            'codemirror.sql': {
+              path: 'public/vendor/codemirror/mode/sql/sql.js',
+              exports: null,
+              depends: {
+                codemirror: 'CodeMirror'
               }
             },
             d3: {
@@ -111,7 +124,7 @@ module.exports = function(grunt) {
         },
         options: {
           transform: ['node-underscorify', 'require-globify'],
-          external: ['backbone', 'bootstrap', 'bootstrap.datepicker', 'd3', 'jquery', 'marionette', 'moment', 'numeral', 'pace', 'pnotify', 'underscore']
+          external: ['backbone', 'bootstrap', 'bootstrap.datepicker', 'codemirror', 'codemirror.sql', 'd3', 'jquery', 'marionette', 'moment', 'numeral', 'pace', 'pnotify', 'underscore']
         }
       },
       test: {
@@ -122,7 +135,7 @@ module.exports = function(grunt) {
         },
         options: {
           transform: ['node-underscorify', 'require-globify'],
-          external: ['backbone', 'bootstrap', 'bootstrap.datepicker', 'd3', 'jquery', 'marionette', 'moment', 'numeral', 'pace', 'pnotify', 'underscore']
+          external: ['backbone', 'bootstrap', 'bootstrap.datepicker', 'codemirror', 'codemirror.sql', 'd3', 'jquery', 'marionette', 'moment', 'numeral', 'pace', 'pnotify', 'underscore']
         }
       }
     },

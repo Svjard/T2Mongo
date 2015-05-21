@@ -14,17 +14,17 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture.</p>
-        <pre>
-<span style="color: rgb(127,58,175);">SELECT</span>
-  <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">year from</span> created)) || <span style="color: rgb(0,0,255);">'-'</span> || <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">month from</span> created)) <span style="color: rgb(127,58,175);">AS</span> OrderDate,
-  <span style="color: rgb(0,0,128);">COUNT</span> (*)
-<span style="color: rgb(127,58,175);">FROM</span> <span style="color: rgb(127,58,175);">"MyECommerce"</span>.<span style="color: rgb(127,58,175);">"tdOrder"</span>
-<span style="color: rgb(127,58,175);">WHERE</span> created <span style="color: rgb(127,58,175);">BETWEEN</span> <span style="color: rgb(64,0,200);">DATE</span> <span style="color: rgb(0,0,255);">'2015-01-01'</span> AND <span style="color: rgb(64,0,200);">DATE</span> <span style="color: rgb(0,0,255);">'2015-06-02'</span>
-<span style="color: rgb(127,58,175);">GROUP BY</span> <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(<span style="color: rgb(127,58,175);">year from</span> created)) || <span style="color: rgb(0,0,255);">'-'</span> || <span style="color: rgb(0,0,128);">TRIM</span>(<span style="color: rgb(0,0,128);">EXTRACT</span>(month from created))
-<span style="color: rgb(127,58,175);">ORDER BY</span> OrderDate <span style="color: rgb(127,58,175);">ASC</span>;
-        </pre>
+        <textarea id="block1">
+SELECT
+  TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) as OrderDate,
+  COUNT (*)
+FROM "MyECommerce"."tdOrder"
+WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
+GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
+ORDER BY OrderDate ASC;
+        </textarea>
         <br>
-        <pre>
+        <textarea id="block2">
 SELECT
   TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) as OrderDate,
   SUM (total)
@@ -32,7 +32,7 @@ FROM "MyECommerce"."tdOrder"
 WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
 GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
 ORDER BY OrderDate ASC;
-        </pre>
+        </textarea>
       </div>
     </div>
   </div>

@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParsePosition;
 
 import java.sql.*;
+import java.math.*;
  
 @Path("/api")
 public class T2MongoApi {
@@ -168,7 +169,13 @@ public class T2MongoApi {
             JSONObject d = new JSONObject();
             if (rsCount == 1) {
               d.put("date", rs.getString(1));
-              d.put("value", rs.getDouble(2));
+              int random = (int )(Math.random() * 50 + 1);
+              if (Math.random() < 0.5) {
+                d.put("value", rs.getInt(2) - random);
+              }
+              else {
+                d.put("value", rs.getInt(2) + random);
+              }
               ((JSONArray)data.get("hits")).add(d);
             }
             else if (rsCount == 2) {

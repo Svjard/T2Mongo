@@ -11,6 +11,7 @@ function resize() {
 }
 
 function changeNav(id) {
+  debugger;
   $('.acc-menu li').removeClass('open').removeClass('active');
   if (id === 'quarterly' || id === 'forecast') {
     $('.acc-menu > li:nth-child(1)').addClass('open');
@@ -22,7 +23,7 @@ function changeNav(id) {
     $('.acc-menu > li:nth-child(4)').addClass('open');
   }
 
-  $('a[href="#/panel/' + id + '"]').parent.addClass('active');
+  $('a[href="#/panel/' + id + '"]').parent().addClass('active');
 }
 
 App.prototype.start = function() {

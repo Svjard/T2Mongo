@@ -58,7 +58,7 @@ module.exports = Marionette.ItemView.extend({
     });
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain(d3.extent(data, function(d) { return d.value; }));
+    y.domain([0, 1500]);
 
     svg.append('g')
         .attr('class', 'x axis')

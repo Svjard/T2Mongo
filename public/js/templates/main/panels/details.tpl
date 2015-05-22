@@ -18,7 +18,7 @@ SELECT b."name", b.description, CAST(CAST(b."start" AS DATE FORMAT 'YYYY-MM-DD')
 FROM "MyECommerce"."tdDiscount" a
 JOIN "MyECommerce"."tdMarketingCampaign" b
 ON a.campaignId = b.campaignId 
-WHERE a.campaignId = 32516;</textarea>
+WHERE b.id = 32516;</textarea>
       </div>
     </div>
   </div>

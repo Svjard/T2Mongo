@@ -396,7 +396,7 @@ public class T2MongoApi {
         "FROM \"MyECommerce\".\"tdDiscount\" a " +
         "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
         "ON a.campaignId = b.campaignId " +
-        "WHERE a.code = 'qhubq';";
+        "WHERE a.campaignId = 32516;";
       boolean results = s.execute(query);
       int rsCount = 0;
 

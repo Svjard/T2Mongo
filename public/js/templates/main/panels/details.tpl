@@ -13,13 +13,12 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <pre>
+        <textarea id="block1" style="height: 200px;">
 SELECT b."name", b.description, CAST(CAST(b."start" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), CAST(CAST(b."end" AS DATE FORMAT 'YYYY-MM-DD') AS VARCHAR(50)), a.code, a.amount
 FROM "MyECommerce"."tdDiscount" a
 JOIN "MyECommerce"."tdMarketingCampaign" b
 ON a.campaignId = b.campaignId 
-WHERE a.code = 'qhubq';
-        </pre>
+WHERE a.campaignId = 32516;</textarea>
       </div>
     </div>
   </div>

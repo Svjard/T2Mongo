@@ -29,6 +29,18 @@ function changeNav(id) {
 App.prototype.start = function() {
   App.core = new Marionette.Application();
 
+  App.pages = [
+    '#/panel/quarterly',
+    '#/panel/forecast',
+    '#/panel/userstats',
+    '#/panel/performance',
+    '#/panel/transactions',
+    '#/panel/channels',
+    '#/panel/details',
+    '#/panel/nextsteps'
+  ];
+  App.currentPage = 0;
+
   App.core.addRegions({
     header:     '#topnav',
     main:       '#page-content',
@@ -46,6 +58,22 @@ App.prototype.start = function() {
   vent.bind('app:start', function(options) {
     vent.trigger('app:log', 'App: Starting');
 
+    vent.on('page:prev', function() {
+      App.currentPage--;
+      if (App.currentPage === 0) {
+        $('#prev-page').addClass('disabled');
+      }
+      App.router.navigate(App.pages[App.currentPage], { 'trigger': true });
+    });
+
+    vent.on('page:next', function() {
+      App.currentPage++;
+      if (App.currentPage + 1 === App.pages.length) {
+        $('#next-page').addClass('disabled');
+      }
+      App.router.navigate(App.pages[App.currentPage], { 'trigger': true });
+    });
+
     $(window).on('resize.main', resize);
 
     $(document).ajaxStart(function() { window.Pace.restart(); });
@@ -58,6 +86,10 @@ App.prototype.start = function() {
         var self = this;
 
         this.route(/^panel(?:\/([a-z]+))$/, 'panel', function (id) {
+          App.currentPage = _.findIndex(App.pages, function(n) {
+            return n.indexOf(id) !== -1;
+          });
+
           App.core.main.show(new App.views['views/main/panels/' + id.charAt(0).toUpperCase() + id.slice(1) + '.js']());
           changeNav(id);
         });

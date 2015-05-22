@@ -2101,8 +2101,8 @@ public class DataGenerator {
         e = format.parse("2015-07-04 23:59:59");
       }
 
-      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(" + n + ",'Loyal Customers','Loyal customer 40% summer nears blowout email campaign.Email Header: Get 40% off all purchases from here till July 4th.',1,cast(cast(700101 as date) + " + new BigDecimal(s.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(s.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + new BigDecimal(e.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(e.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second);\n");
-      writerD.write("INSERT INTO MyECommerce.tdDiscount VALUES(" + n + "," + n + ",'" + iterator.next() + "', 0.15);\n");
+      writerMC.write("INSERT INTO MyECommerce.tdMarketingCampaign VALUES(32516,'Loyal Customers','Loyal customer 40% summer nears blowout email campaign.Email Header: Get 40% off all purchases from here till July 4th.',1,cast(cast(700101 as date) + " + new BigDecimal(s.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(s.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second" + ",cast(cast(700101 as date) + " + new BigDecimal(e.getTime() / 1000).toPlainString() + " / 86400 as timestamp(6)) + (" + new BigDecimal(e.getTime() / 1000).toPlainString() + " mod 86400) * interval '00:00:01' hour to second);\n");
+      writerD.write("INSERT INTO MyECommerce.tdDiscount VALUES(" + n + ",32516,'" + iterator.next() + "', 0.15);\n");
       n++;
     }
     writerMC.close();
@@ -2145,7 +2145,7 @@ public class DataGenerator {
         }
           
         totalQ1 += total;
-        discount = "foo";
+        discount = "----";
       }
       else {
         created = oRandomCreated(1);
@@ -2375,11 +2375,11 @@ public class DataGenerator {
         r = "email";
         int rs = (int)randLong(1L, 2L);
         if (rs == 1) {
-          r += "::" + campaigns.get(0);
+          r += "::32516";
           user = String.valueOf(incomplete.get((int)randLong(1L, (long)incomplete.size()) - 1));
         }
         else {
-          r += "::foo";
+          r += "::----";
           int u = (int)randLong(1L, 123000L);
           while (incomplete.contains(user)) {
             u = (int)randLong(1L, 123000L);

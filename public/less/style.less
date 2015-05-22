@@ -14,6 +14,12 @@
 
 @import (inline) 'theme.css';
 
+#prev-page, #next-page {
+  &.disabled {
+    color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 .panel-quarterly, .panel-userstats {
   .bar {
     fill: steelblue;

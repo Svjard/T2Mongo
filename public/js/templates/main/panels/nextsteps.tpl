@@ -43,12 +43,12 @@
         <p>
         We can re-engage those customers who came to the website via the marketing campaign email and did not complete their order with a new 50% off campaign. For those who customers who came to the website via the marketing campaign email and did complete their order we can include them in the new 50% off campaign and provide a the most browsed item among them as a free giveaway with their order.
         </p>
-        <textarea id="block3" style="height: 200px;">
+        <textarea id="block2" style="height: 200px;">
         SELECT UserID 
         FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'incomplete';
         </textarea>
-        <textarea id="block4" style="height: 200px;">
+        <textarea id="block3" style="height: 200px;">
         SELECT UserID 
         FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'completed';

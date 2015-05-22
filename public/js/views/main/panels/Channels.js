@@ -13,26 +13,26 @@ module.exports = Marionette.ItemView.extend({
         theme: 'eclipse',
         mode: 'text/x-sql'
       });
+    });
 
-      var self = this;
-      $.ajax({
-        error: function (jqXHR, textStatus, errorThrown) {
-          alert('Server Error');
-        },
-        success: function (data, textStatus, jqXHR) {
-          var tableHtml = '';
-          _.each(data.channels, function(n) {
-            tableHtml += '<tr>';
-            tableHtml += '<td>' + n.Referrer + '</td>';
-            tableHtml += '<td>' + n.Count + '</td>';
-            tableHtml += '</tr>';
-          });
+    var self = this;
+    $.ajax({
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('Server Error');
+      },
+      success: function (data, textStatus, jqXHR) {
+        var tableHtml = '';
+        _.each(data.channels, function(n) {
+          tableHtml += '<tr>';
+          tableHtml += '<td>' + n.Referrer + '</td>';
+          tableHtml += '<td>' + n.Count + '</td>';
+          tableHtml += '</tr>';
+        });
 
-          $(self.el).find('#table-channels tbody').html(tableHtml);
-        },
-        type: 'POST',
-        url: 'http://192.168.11.130:8055/api/query6'
-      });
+        $(self.el).find('#table-channels tbody').html(tableHtml);
+      },
+      type: 'POST',
+      url: 'http://192.168.11.130:8055/api/query6'
     });
   }
 });

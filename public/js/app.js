@@ -30,6 +30,7 @@ App.prototype.start = function() {
   App.core = new Marionette.Application();
 
   App.pages = [
+    '#/panel/home',
     '#/panel/quarterly',
     '#/panel/forecast',
     '#/panel/userstats',
@@ -60,6 +61,7 @@ App.prototype.start = function() {
 
     vent.on('page:prev', function() {
       App.currentPage--;
+      $('#next-page').removeClass('disabled');
       if (App.currentPage === 0) {
         $('#prev-page').addClass('disabled');
       }
@@ -68,6 +70,7 @@ App.prototype.start = function() {
 
     vent.on('page:next', function() {
       App.currentPage++;
+      $('#prev-page').removeClass('disabled');
       if (App.currentPage + 1 === App.pages.length) {
         $('#next-page').addClass('disabled');
       }

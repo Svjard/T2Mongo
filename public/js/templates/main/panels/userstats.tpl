@@ -14,7 +14,7 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform the aggregations but aggregrate queries must be in run in serial.</p>
-        <textarea id="block1">
+        <textarea id="block1" style="height: 175px;">
 SELECT
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   COUNT(*) AS "TotalHits"
@@ -22,7 +22,7 @@ FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"timestamp": {$gte: 
 GROUP BY TheDate
 ORDER BY TheDate ASC;</textarea>
         <br>
-        <textarea id="block2">
+        <textarea id="block2" style="height: 175px;">
 SELECT
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   COUNT(*) AS "BounceRate"
@@ -30,7 +30,7 @@ FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"pages": {$eq: 1}, "
 GROUP BY TheDate
 ORDER BY TheDate ASC;</textarea>
         <br>
-        <textarea id="block3">
+        <textarea id="block3" style="height: 175px;">
 SELECT
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   AVG(MongoData.session) AS "AvgSessionTime"

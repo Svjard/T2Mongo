@@ -13,7 +13,7 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <textarea id="block1">
+        <textarea id="block1" style="height: 225px;">
 SELECT
   COUNT(*),
   CAST(MongoData.referrer AS VARCHAR(255))

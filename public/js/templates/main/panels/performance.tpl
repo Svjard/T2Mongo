@@ -14,13 +14,15 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform the aggregations but aggregrate queries must be in run in serial.</p>
-        <textarea id="block1">
+        <textarea id="block1" style="height: 250px;">
 SELECT
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   MIN(ms) AS "MinPerf",
   MAX(ms) AS "MaxPerf",
   AVG(ms) AS "AvgPerf"
-FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;</textarea>
+FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
+GROUP BY TheDate
+ORDER BY TheDate ASC;</textarea>
         </textarea>
       </div>
     </div>

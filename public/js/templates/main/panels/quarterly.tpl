@@ -14,7 +14,7 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture.</p>
-        <textarea id="block1">
+        <textarea id="block1" style="height: 200px;">
 SELECT
   TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) as OrderDate,
   COUNT (*)
@@ -22,8 +22,7 @@ FROM "MyECommerce"."tdOrder"
 WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
 GROUP BY TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created))
 ORDER BY OrderDate ASC;</textarea>
-        <br>
-        <textarea id="block2">
+        <textarea id="block2" style="height: 200px;">
 SELECT
   TRIM(EXTRACT(year from created)) || '-' || TRIM(EXTRACT(month from created)) as OrderDate,
   SUM (total)

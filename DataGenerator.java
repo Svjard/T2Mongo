@@ -2777,6 +2777,6 @@ public class DataGenerator {
     System.err.println("setupBounceRate");
     setupBounceRate();
 
-    //loadData();
+    loadData();
   }
 }

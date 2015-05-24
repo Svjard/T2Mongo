@@ -84,3 +84,12 @@ Each panel will show the query being run and the resulting visualization/table o
     - Report issue to our developer/IT team
     - Now we can proactively re-target these particular customers using our Mongo data and/or Teradata data for all who came from the email link and just those who tried entering the code. Perhaps those who completed the transaction w/ the wrong discount versus those who entered it and then bounced versus those who only clicked on the email all could be targeted in different ways
     - Can use R for further forcasting based on a certain percentage we give them, show potential sales revenue from it based on the other campaigns (May be again too complex first out but powerful to show how our product data in Teradata (price versus margin) combined with previous conversion rates can act to provide a more sophisticated targeting mechanism of new campaigns)
+
+### Demo vs Interactive
+
+  * Home page you select from three buttons: (begin demo), (begin interative mode)
+  * If interactive mode: modal popup with Normal or Advanced, with slight description for each
+    * Show first slide about quarterly profit and description of the task
+    * Possible areas to investigate questions: [dropdown of choices like website performance, website user behavior trends, transaction history]
+    * After selection, the query is partially written but certain parts provide drop-down options to select from to "build" up the correct query. Advanced mode has the user write the entire query. As the query changes so does the graph and charts.
+    * The final panel has the conclusion which is a drop-down of options the user must select from. Each selection begins to build out the final proposal for the CFO.

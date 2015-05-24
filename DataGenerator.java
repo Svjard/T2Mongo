@@ -44,6 +44,7 @@ public class DataGenerator {
 
   private static Map<String, String[]> uaMap = new HashMap<String, String[]>();
   private static Map<String, Double> freqMap = new HashMap<String, Double>();
+  private static List<String> locales = new ArrayList<String>();
 
   public static List<String> searchUrls = new ArrayList<String>();
   static {
@@ -65,6 +66,217 @@ public class DataGenerator {
   };
 
    static {
+
+    locales.add("af-ZA");
+    locales.add("am-ET");
+    locales.add("ar-AE");
+    locales.add("ar-BH");
+    locales.add("ar-DZ");
+    locales.add("ar-EG");
+    locales.add("ar-IQ");
+    locales.add("ar-JO");
+    locales.add("ar-KW");
+    locales.add("ar-LB");
+    locales.add("ar-LY");
+    locales.add("ar-MA");
+    locales.add("arn-CL");
+    locales.add("ar-OM");
+    locales.add("ar-QA");
+    locales.add("ar-SA");
+    locales.add("ar-SY");
+    locales.add("ar-TN");
+    locales.add("ar-YE");
+    locales.add("as-IN");
+    locales.add("az-Cyrl-AZ");
+    locales.add("az-Latn-AZ");
+    locales.add("ba-RU");
+    locales.add("be-BY");
+    locales.add("bg-BG");
+    locales.add("bn-BD");
+    locales.add("bn-IN");
+    locales.add("bo-CN");
+    locales.add("br-FR");
+    locales.add("bs-Cyrl-BA");
+    locales.add("bs-Latn-BA");
+    locales.add("ca-ES");
+    locales.add("co-FR");
+    locales.add("cs-CZ");
+    locales.add("cy-GB");
+    locales.add("da-DK");
+    locales.add("de-AT");
+    locales.add("de-CH");
+    locales.add("de-DE");
+    locales.add("de-LI");
+    locales.add("de-LU");
+    locales.add("dsb-DE");
+    locales.add("dv-MV");
+    locales.add("el-GR");
+    locales.add("en-029");
+    locales.add("en-AU");
+    locales.add("en-BZ");
+    locales.add("en-CA");
+    locales.add("en-GB");
+    locales.add("en-IE");
+    locales.add("en-IN");
+    locales.add("en-JM");
+    locales.add("en-MY");
+    locales.add("en-NZ");
+    locales.add("en-PH");
+    locales.add("en-SG");
+    locales.add("en-TT");
+    locales.add("en-US");
+    locales.add("en-ZA");
+    locales.add("en-ZW");
+    locales.add("es-AR");
+    locales.add("es-BO");
+    locales.add("es-CL");
+    locales.add("es-CO");
+    locales.add("es-CR");
+    locales.add("es-DO");
+    locales.add("es-EC");
+    locales.add("es-ES");
+    locales.add("es-GT");
+    locales.add("es-HN");
+    locales.add("es-MX");
+    locales.add("es-NI");
+    locales.add("es-PA");
+    locales.add("es-PE");
+    locales.add("es-PR");
+    locales.add("es-PY");
+    locales.add("es-SV");
+    locales.add("es-US");
+    locales.add("es-UY");
+    locales.add("es-VE");
+    locales.add("et-EE");
+    locales.add("eu-ES");
+    locales.add("fa-IR");
+    locales.add("fi-FI");
+    locales.add("fil-PH");
+    locales.add("fo-FO");
+    locales.add("fr-BE");
+    locales.add("fr-CA");
+    locales.add("fr-CH");
+    locales.add("fr-FR");
+    locales.add("fr-LU");
+    locales.add("fr-MC");
+    locales.add("fy-NL");
+    locales.add("ga-IE");
+    locales.add("gd-GB");
+    locales.add("gl-ES");
+    locales.add("gsw-FR");
+    locales.add("gu-IN");
+    locales.add("ha-Latn-NG");
+    locales.add("he-IL");
+    locales.add("hi-IN");
+    locales.add("hr-BA");
+    locales.add("hr-HR");
+    locales.add("hsb-DE");
+    locales.add("hu-HU");
+    locales.add("hy-AM");
+    locales.add("id-ID");
+    locales.add("ig-NG");
+    locales.add("ii-CN");
+    locales.add("is-IS");
+    locales.add("it-CH");
+    locales.add("it-IT");
+    locales.add("iu-Cans-CA");
+    locales.add("iu-Latn-CA");
+    locales.add("ja-JP");
+    locales.add("ka-GE");
+    locales.add("kk-KZ");
+    locales.add("kl-GL");
+    locales.add("km-KH");
+    locales.add("kn-IN");
+    locales.add("kok-IN");
+    locales.add("ko-KR");
+    locales.add("ky-KG");
+    locales.add("lb-LU");
+    locales.add("lo-LA");
+    locales.add("lt-LT");
+    locales.add("lv-LV");
+    locales.add("mi-NZ");
+    locales.add("mk-MK");
+    locales.add("ml-IN");
+    locales.add("mn-MN");
+    locales.add("mn-Mong-CN");
+    locales.add("moh-CA");
+    locales.add("mr-IN");
+    locales.add("ms-BN");
+    locales.add("ms-MY");
+    locales.add("mt-MT");
+    locales.add("nb-NO");
+    locales.add("ne-NP");
+    locales.add("nl-BE");
+    locales.add("nl-NL");
+    locales.add("nn-NO");
+    locales.add("nso-ZA");
+    locales.add("oc-FR");
+    locales.add("or-IN");
+    locales.add("pa-IN");
+    locales.add("pl-PL");
+    locales.add("prs-AF");
+    locales.add("ps-AF");
+    locales.add("pt-BR");
+    locales.add("pt-PT");
+    locales.add("qut-GT");
+    locales.add("quz-BO");
+    locales.add("quz-EC");
+    locales.add("quz-PE");
+    locales.add("rm-CH");
+    locales.add("ro-RO");
+    locales.add("ru-RU");
+    locales.add("rw-RW");
+    locales.add("sah-RU");
+    locales.add("sa-IN");
+    locales.add("se-FI");
+    locales.add("se-NO");
+    locales.add("se-SE");
+    locales.add("si-LK");
+    locales.add("sk-SK");
+    locales.add("sl-SI");
+    locales.add("sma-NO");
+    locales.add("sma-SE");
+    locales.add("smj-NO");
+    locales.add("smj-SE");
+    locales.add("smn-FI");
+    locales.add("sms-FI");
+    locales.add("sq-AL");
+    locales.add("sr-Cyrl-BA");
+    locales.add("sr-Cyrl-CS");
+    locales.add("sr-Cyrl-ME");
+    locales.add("sr-Cyrl-RS");
+    locales.add("sr-Latn-BA");
+    locales.add("sr-Latn-CS");
+    locales.add("sr-Latn-ME");
+    locales.add("sr-Latn-RS");
+    locales.add("sv-FI");
+    locales.add("sv-SE");
+    locales.add("sw-KE");
+    locales.add("syr-SY");
+    locales.add("ta-IN");
+    locales.add("te-IN");
+    locales.add("tg-Cyrl-TJ");
+    locales.add("th-TH");
+    locales.add("tk-TM");
+    locales.add("tn-ZA");
+    locales.add("tr-TR");
+    locales.add("tt-RU");
+    locales.add("tzm-Latn-DZ");
+    locales.add("ug-CN");
+    locales.add("uk-UA");
+    locales.add("ur-PK");
+    locales.add("uz-Cyrl-UZ");
+    locales.add("uz-Latn-UZ");
+    locales.add("vi-VN");
+    locales.add("wo-SN");
+    locales.add("xh-ZA");
+    locales.add("yo-NG");
+    locales.add("zh-CN");
+    locales.add("zh-HK");
+    locales.add("zh-MO");
+    locales.add("zh-SG");
+    locales.add("zh-TW");
+    locales.add("zu-ZA");
 
     freqMap.put("Internet Explorer", 11.8);
     freqMap.put("Firefox", 28.2);
@@ -2253,9 +2465,7 @@ public class DataGenerator {
     writerO.close();
   }
 
-  public static void setupPageLoads() throws Exception {
-    PrintWriter writer = new PrintWriter(new FileWriter("data/tdPageLoads.json"));
-
+  public static String randomPage() throws Exception {
     List<String> pages = new ArrayList<String>();
     pages.add("/login");
     pages.add("/register");
@@ -2265,8 +2475,41 @@ public class DataGenerator {
     pages.add("/browse/{category}");
     pages.add("/item/{id}");
     
+    String page = null;
+    int p = (int)randLong(1L, 100L);
+    if (p < 3) {
+      page = pages.get(0);
+    }
+    else if (p < 10) {
+      page = pages.get(1);
+    }
+    else if (p < 25) {
+      page = pages.get(2);
+    }
+    else if (p < 35) {
+      page = pages.get(3);
+    }
+    else if (p < 37) {
+      page = pages.get(4);
+    }
+    else if (p < 75) {
+      page = pages.get(5);
+      int id = (int)randLong(1L, 71L);
+      page = page.replace("{category}", "" + id);
+    }
+    else {
+      page = pages.get(6);
+      int id = (int)randLong(1L, 1815L);
+      page = page.replace("{id}", "" + id);
+    }
+
+    return page; 
+  }
+
+  public static void setupPageLoads() throws Exception {
+    PrintWriter writer = new PrintWriter(new FileWriter("data/tdPageLoads.json"));
+
     for (int i = 0; i < 1000 * 5; i++) {
-      int p = (int)randLong(1L, 100L);
       int id = 0;
       long ts = 0;
       if (i < 1000) {
@@ -2285,32 +2528,6 @@ public class DataGenerator {
         ts = oRandomPage(4);
       }
 
-      String page = null;
-      if (p < 3) {
-        page = pages.get(0);
-      }
-      else if (p < 10) {
-        page = pages.get(1);
-      }
-      else if (p < 25) {
-        page = pages.get(2);
-      }
-      else if (p < 35) {
-        page = pages.get(3);
-      }
-      else if (p < 37) {
-        page = pages.get(4);
-      }
-      else if (p < 75) {
-        page = pages.get(5);
-        id = (int)randLong(1L, 71L);
-        page = page.replace("{category}", "" + id);
-      }
-      else {
-        page = pages.get(6);
-        id = (int)randLong(1L, 1815L);
-        page = page.replace("{id}", "" + id);
-      }
       int ms = (int)randLong(50L, 376L);
       Calendar cal = Calendar.getInstance();
       cal.setTime(new Date(ts));
@@ -2318,7 +2535,7 @@ public class DataGenerator {
       int year = cal.get(Calendar.YEAR);
 
       String q = "{";
-      q += "\"page\":\"" + page + "\",";
+      q += "\"page\":\"" + randomPage() + "\",";
       q += "\"timestamp\":" + ts + ",";
       q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month + 1)) + "\",";
       q += "\"ms\":" + ms + "}\n";
@@ -2332,6 +2549,8 @@ public class DataGenerator {
     // users, session time, page hit count, user-agent
     PrintWriter writer = new PrintWriter(new FileWriter("data/tdUsers.json"));
     
+    com.github.javafaker.Faker faker = new com.github.javafaker.Faker();
+    Fairy fairy = Fairy.create();
     for (int i = 0; i < 1000 * 5; i++) {
       int p = (int)randLong(1L, 100L);
       int id = 0;
@@ -2388,20 +2607,80 @@ public class DataGenerator {
         }
       }
 
-      int sessionTime = (int)randLong(1L, 123000L);
       int pages = (int)randLong(1L, 25L); 
+      JsonArray session = new JsonArray();
+      for (int in = 0; in < pages; in++) {
+        int pageTime = (int)randLong(1L, 12300L);
+        JsonObject d = new JsonObject();
+        d.add("page", new JsonPrimitive(randomPage()));
+        d.add("pageTime", new JsonPrimitive(pageTime));
+        JsonArray actions = new JsonArray();
+        // page actions: download, upload, media, time
+        int acts = (int)randLong(1L, 15L);
+        String[] actTypes = {
+          "download",
+          "upload",
+          "media",
+          "form"
+        };
+        
+        for (int a = 0; a < acts; a++) {
+          int ty = (int)randLong(1L, (long)actTypes.length);
+          JsonObject o = new JsonObject();
+          o.add("type", new JsonPrimitive(actTypes[ty - 1]));
+          o.add("time", new JsonPrimitive((int)randLong(1L, 1452L)));
+          actions.add(o);
+        }
+        d.add("actions", actions);
+
+        JsonArray clickStream = new JsonArray();
+        // random number of clicks per page with the x-y coordinates
+        // being stored as well as single/double and left/right attribute
+        int clicks = (int)randLong(1L, 25L);
+        for (int j = 0; j < clicks; j++) {
+          JsonObject c = new JsonObject();
+          int x = (int)randLong(1L, 1024L);
+          c.add("x", new JsonPrimitive(x));
+          int y = (int)randLong(1L, 768L);
+          c.add("y", new JsonPrimitive(y));
+          int q = (int)randLong(1L, 2L);
+          c.add("button", (q == 1) ? new JsonPrimitive("left") : new JsonPrimitive("right"));
+          q = (int)randLong(1L, 2L);
+          c.add("type", (q == 1) ? new JsonPrimitive("single") : new JsonPrimitive("double"));
+          clickStream.add(c); 
+        }
+        d.add("clickStream", clickStream);
+        session.add(d);
+      }
+
       String userAgent = getRandomUserAgent();
       Calendar cal = Calendar.getInstance();
       cal.setTime(new Date(ts));
       int month = cal.get(Calendar.MONTH);
       int year = cal.get(Calendar.YEAR);
+      int isUnique = (int)randLong(1L, 2L);
+      int lc = (int)randLong(1L, (long)locales.size());
+      
+      double latitude = randFloat(0.0D, 180.0D);
+      latitude -= 90.0;
+      double longitude = randFloat(0.0D, 360.0D);
+      longitude -= 180.0;
+      
+      // add location (longitude, latitude)
+      Person person = fairy.person();
+      com.github.javafaker.Address a = faker.address();
       String q = "{";
       q += "\"user\":\"" + user + "\",";
+      q += "\"location\":[" + latitude + "," + longitude + "],";
+      q += "\"locale\":\"" + locales.get(lc - 1) + "\",";
+      q += "\"domain\":\"" + fairy.company().url().replaceAll("http://", "").replaceAll("www", "") + "\",";
+      q += "\"city\":\"" + (a.citySuffix() + a.cityPrefix()) + "\",";
+      q += "\"country\":\"" + a.country() + "\",";
+      q += "\"unique\":" + ((user.indexOf(".") == -1) ? false : (isUnique == 1) ? true : false) + ",";
       q += "\"timestamp\":" + ts + ",";
       q += "\"fdate\":\"" + (year + "-" + String.format("%02d", month + 1)) + "\",";
-      q += "\"session\":" + sessionTime + ",";
-      q += "\"pages\":" + pages + ",";
       q += "\"referrer\":\"" + r + "\",";
+      q += "\"sessionInfo\":" + session.toString() + ",";
       q += "\"userAgent\":\"" + userAgent + "\"}\n";
       writer.write(q);
     }
@@ -2498,6 +2777,6 @@ public class DataGenerator {
     System.err.println("setupBounceRate");
     setupBounceRate();
 
-    loadData();
+    //loadData();
   }
 }

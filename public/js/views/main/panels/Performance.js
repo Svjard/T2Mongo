@@ -6,14 +6,21 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/performance.tpl'),
   className: 'panel-view',
   onShow: function() {
-    _.each(_.range(1), function(n) {
-      CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
+    _.each(_.range(2), function(n) {
+      var cm = CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
         lineNumbers: true,
         styleActiveLine: true,
         matchBrackets: true,
         theme: 'eclipse',
         mode: 'text/x-sql'
       });
+
+      if (n === 0) {
+        cm.setSize(null,225);
+      }
+      else {
+        cm.setSize(null,250);
+      }
     });
 
     var self = this;

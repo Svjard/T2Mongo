@@ -5,8 +5,8 @@ module.exports = Marionette.ItemView.extend({
   template: require('../../../templates/main/panels/nextsteps.tpl'),
   className: 'panel-view',
   onShow: function() {
-    _.each(_.range(4), function(n) {
-      CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
+    _.each(_.range(3), function(n) {
+      var cm = CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
         lineNumbers: true,
         styleActiveLine: true,
         matchBrackets: true,
@@ -15,10 +15,13 @@ module.exports = Marionette.ItemView.extend({
       });
 
       if (n === 0) {
-        cm.setSize(null,325);
+        cm.setSize(null,375);
       }
-      else {
+      else if (n === 1) {
         cm.setSize(null,175);
+      }
+      else if (n === 2) {
+        cm.setSize(null,250);
       }
     });
   }

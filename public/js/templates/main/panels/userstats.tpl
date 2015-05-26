@@ -26,7 +26,7 @@ ORDER BY TheDate ASC;</textarea>
 SELECT
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   COUNT(*) AS "BounceRate"
-FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"session": {$size: 1}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
+FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"sessionInfo": {$size: 1}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
 GROUP BY TheDate
 ORDER BY TheDate ASC;</textarea>
         <br>

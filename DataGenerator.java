@@ -2551,21 +2551,21 @@ public class DataGenerator {
     
     com.github.javafaker.Faker faker = new com.github.javafaker.Faker();
     Fairy fairy = Fairy.create();
-    for (int i = 0; i < 1000 * 5; i++) {
+    for (int i = 0; i < 500 * 5; i++) {
       int p = (int)randLong(1L, 100L);
       int id = 0;
       String user = String.valueOf(randLong(1L, 123000L));
       long ts = 0;
-      if (i < 1000) {
+      if (i < 500) {
         ts = oRandomPage(0);
       }
-      else if (i < 2000) {
+      else if (i < 1000) {
         ts = oRandomPage(1);
       }
-      else if (i < 3000) {
+      else if (i < 1500) {
         ts = oRandomPage(2);
       }
-      else if (i < 4000) {
+      else if (i < 2000) {
         ts = oRandomPage(3);
       }
       else {
@@ -2607,7 +2607,7 @@ public class DataGenerator {
         }
       }
 
-      int pages = (int)randLong(1L, 25L); 
+      int pages = (int)randLong(1L, 5L); 
       JsonArray session = new JsonArray();
       for (int in = 0; in < pages; in++) {
         int pageTime = (int)randLong(1L, 12300L);
@@ -2616,7 +2616,7 @@ public class DataGenerator {
         d.add("pageTime", new JsonPrimitive(pageTime));
         JsonArray actions = new JsonArray();
         // page actions: download, upload, media, time
-        int acts = (int)randLong(1L, 15L);
+        int acts = (int)randLong(1L, 3L);
         String[] actTypes = {
           "download",
           "upload",

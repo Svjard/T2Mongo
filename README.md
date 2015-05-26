@@ -16,19 +16,11 @@ NOTE: The minimum required TDBMS versions are:
 1. First you need to get a Teradata Express VM.
 2. Add the VM to VM Player and launch the VM
 3. Once the VM has booted up open a console window. Run the command `netstat -r`. Find the *default* IP listed. Open /etc/resolv.conf as superuser. Change the nameserver entry to the default IP.
-4. `wget http://cran.rstudio.com/src/base/R-3/R-3.2.0.tar.gz`
-5. `tar -zxvf R-3.2.0.tar.gz`
-6. `cd R-3.2.0`
-7. First we must install an fortran compiler as is required by R. So run the following commands:
-  `wget https://Svjard@bitbucket.org/Svjard/t2mongo/openSUSE-11.0-Oss.repo.txt   
-  cp openSUSE-11.0-Oss.repo.txt /etc/zypp/repos.d/openSUSE-11.0-Oss.repo   
-  zypper in gcc-fortran`  
-  and follow the instructions to correctly downgrade to the proper packages.
-7. `./configure --with-readline=no --with-x=no`
-8. `make`
-9. `make install`
-10. Launch R running the command: `r`
-11. `packages.install("forecast")`
+4. Make sure you have Python (>= 2.6 or >= 3.3) by running the command `python --version`
+5. `zypper install python-pip`
+6. `wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py`
+7. `python get-pip.py`
+
 12. `/etc/init.d/tpa start` will launch our database.
 
 #### MongoDB VM
@@ -90,6 +82,8 @@ Each panel will show the query being run and the resulting visualization/table o
   * Home page you select from three buttons: (begin demo), (begin interative mode)
   * If interactive mode: modal popup with Normal or Advanced, with slight description for each
     * Show first slide about quarterly profit and description of the task
+    * Must investigate every area 
     * Possible areas to investigate questions: [dropdown of choices like website performance, website user behavior trends, transaction history]
     * After selection, the query is partially written but certain parts provide drop-down options to select from to "build" up the correct query. Advanced mode has the user write the entire query. As the query changes so does the graph and charts.
     * The final panel has the conclusion which is a drop-down of options the user must select from. Each selection begins to build out the final proposal for the CFO.
+    * In interactive mode change the navbar to have a start-over button, easy way to get to the proposal, way to show th

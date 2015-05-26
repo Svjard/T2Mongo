@@ -11,4 +11,30 @@
       </div>
     </div>
   </div>
+  <div class="col-xs-12">
+    <div class="panel panel-primary panel-admin">
+      <div class="panel-body">
+        <h4>Query Set</h4>
+        <textarea id="block1" class="cm-225">
+# We must first install our script so Teradata can recognize it and set the search path for our
+# session. 
+CALL SYSUIF.INSTALL_FILE('forecast', 'forecast.py','cz!/root/forecast.py');
+SET SESSION SEARCHUIFDBPATH = dr_forecast; 
+
+# Finally we can run our script which leverages stdin and stdout.
+SELECT * FROM SCRIPT
+( ON (SELECT
+    TRIM(EXTRACT(month from created)) AS "OrderDNum",
+    SUM (total) 
+  FROM "MyECommerce"."tdOrder"
+  WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
+  GROUP BY TRIM(EXTRACT(month from created))
+  ORDER BY OrderDNum ASC)
+SCRIPT_COMMAND('python ./dr_forecast/forecast.py')
+RETURNS ('fdate VARCHAR(30)', 'predicted_value FLOAT')
+DELIMITER(':')
+);
+</textarea>
+    </div>
+  </div>
 </div>

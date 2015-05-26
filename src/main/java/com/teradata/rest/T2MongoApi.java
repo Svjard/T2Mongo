@@ -149,14 +149,18 @@ public class T2MongoApi {
         "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
       query +=
         "SELECT " +
-        "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  COUNT(*) AS \"BounceRate\" " +
-        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"pages\": {$eq: 1}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
+        " TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
+        " COUNT(*) AS \"BounceRate\" " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({$and: [{\"sessionInfo\": {$size: 1}}, {\"sessionInfo.page\": {$in: [\"/home\",\"/login\",\"/register\"]}}], \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "GROUP BY TheDate " +
+        "ORDER BY TheDate ASC;";
       query +=
         "SELECT " +
-        "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  AVG(MongoData.\"session\") AS \"AvgSessionTime\" " +
-        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {$ne: \"127.0.0.1\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate ORDER BY TheDate ASC;";
+        " TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
+        " AVG(MongoData.JSONExtractValue('$.sessionInfo[0].pageTime')) AS \"AvgSessionTime\" " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({\"user\": {$ne: \"127.0.0.1\"}, \"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "GROUP BY TheDate " +
+        "ORDER BY TheDate ASC;";
       boolean results = s.execute(query);
       int rsCount = 0;
 
@@ -230,21 +234,27 @@ public class T2MongoApi {
       s = connection.createStatement();
 
       String query =
-        "SELECT " +
-        "  TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
-        "  MongoData.\"page\" AS \"MyPage\", " +
-        "  MIN(MongoData.\"ms\") AS \"MinPerf\", " +
-        "  MAX(MongoData.\"ms\") AS \"MaxPerf\", " +
-        "  AVG(MongoData.\"ms\") AS \"AvgPerf\" " +
-        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T GROUP BY TheDate, MyPage ORDER BY TheDate ASC;";
+        "SELECT TOP 250 " +
+        " TRIM(CAST(MongoData.\"fdate\" AS VARCHAR(50))) AS \"TheDate\", " +
+        " MongoData.\"page\" AS \"ThePage\", " +
+        " COUNT(*) AS \"PageHits\", " +
+        " MIN(MongoData.ms) AS \"MinPerf\", " +
+        " MAX(MongoData.ms) AS \"MaxPerf\", " +
+        " AVG(MongoData.ms) AS \"AvgPerf\", " +
+        " STDDEV_POP(MongoData.ms) AS \"StdDev\" " +
+        "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
+        "GROUP BY TheDate, The Page " +
+        "ORDER BY StdDev DESC, ThePage ASC, TheDate ASC;";
       ResultSet rs = s.executeQuery(query);
       while (rs.next()) {
         JSONObject d = new JSONObject();
-        d.put("date", rs.getString(1));
-        d.put("page", rs.getString(2));
-        d.put("min", rs.getFloat(3));
-        d.put("max", rs.getFloat(4));
-        d.put("avg", rs.getFloat(5));
+        d.put("TheDate", rs.getString(1));
+        d.put("Page", rs.getString(2));
+        d.put("Hits", rs.getInt(3));
+        d.put("Min", rs.getFloat(4));
+        d.put("Max", rs.getFloat(5));
+        d.put("Avg", rs.getFloat(6));
+        d.put("StdDev", rs.getFloat(7));
         ((JSONArray)data.get("pages")).add(d);
       }
 

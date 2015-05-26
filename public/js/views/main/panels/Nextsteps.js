@@ -13,6 +13,13 @@ module.exports = Marionette.ItemView.extend({
         theme: 'eclipse',
         mode: 'text/x-sql'
       });
+
+      if (n === 0) {
+        cm.setSize(null,325);
+      }
+      else {
+        cm.setSize(null,175);
+      }
     });
   }
 });

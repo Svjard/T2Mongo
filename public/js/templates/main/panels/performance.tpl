@@ -13,38 +13,19 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <p>We run these queries in parallel to take adavantage of Teradata's massively parallel architecture. Note that we could also submit queries using MongoDB's aggregration framework to perform the aggregations but aggregrate queries must be in run in serial.</p>
+        <p>We take advantage of the built-in functions within Teradata to perform operations otherwise impossible to do directly inside MongoDB.</p>
         <textarea id="block1" class="cm-225">
-SELECT
+SELECT TOP 250 
   TRIM(CAST(MongoData."fdate" AS VARCHAR(50))) AS "TheDate",
   MongoData."page" AS "ThePage",
+  COUNT(*) AS "PageHits",
   MIN(MongoData.ms) AS "MinPerf",
   MAX(MongoData.ms) AS "MaxPerf",
-  AVG(MongoData.ms) AS "AvgPerf",
-  COUNT(*) AS "HitRate" 
+  AVG(MongoData.ms) AS "AvgPerf", 
+  STDDEV_POP(MongoData.ms) AS "StdDev" 
 FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({"timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
 GROUP BY TheDate, The Page
 ORDER BY ThePage ASC, TheDate ASC;</textarea>
-
-        <textarea id="block2" class="cm-250">
-t2mongo.perf.aggregate(
-   [
-      {
-        $group : {
-           _id : { $fdate, $page },
-           min: { $min: $ms },
-           max: { $max: "$ms" },
-           avg: { $avg: "$ms" },
-           count: { $sum: 1 }
-        },
-        {
-          $match: { 
-            timestamp: { $gte: 1420070400000, $lte: 1433289599000 }
-          }
-        }
-      }
-   ]
-)</textarea>
       </div>
     </div>
   </div>
@@ -52,12 +33,50 @@ t2mongo.perf.aggregate(
     <div class="panel panel-primary panel-admin panel-performance">
       <div class="panel-body">
         <h4>Website Performance</h4>
-        <p>
-          <select id="pages-dropdown" class="form-control"> 
-          </select>
-        </p>
-        <div id="performance-chart">
-          
+        <div class="table-responsive" style="height: 250px;">
+          <table id="table-performance" class="table table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>TheDate</th>
+                <th>Page</th>
+                <th>Page Hits</th>
+                <th>Min (ms)</th>
+                <th>Max (ms)</th>
+                <th>Avg (ms)</th>
+                <th>Std. Dev.</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="panel panel-primary panel-admin panel-performance">
+      <div class="panel-body">
+        <h4>Actions Performance</h4>
+        <div class="table-responsive" style="height: 250px;">
+          <table id="table-transactions" class="table table-striped table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>TheDate</th>
+                <th>Page</th>
+                <th>Page Hits</th>
+                <th>Min (ms)</th>
+                <th>Max (ms)</th>
+                <th>Avg (ms)</th>
+                <th>Std. Dev.</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

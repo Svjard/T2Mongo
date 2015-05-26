@@ -13,20 +13,18 @@
     <div class="panel panel-primary panel-admin">
       <div class="panel-body">
         <h4>Query Set</h4>
-        <textarea id="block1" style="height: 400px;">
+        <textarea id="block1" class="cm-400">
         CREATE TABLE "MyECommerce"."tdLostCustomers"
         (
           UserID INTEGER,
-          FDate DATE,
-          Referrer VARCHAR(255),
-          OrderStatus VARCHAR(255),
+          JData JSON(1600000),
+          OrderStatus VARCHAR(255) 
         );
 
         INSERT INTO "MyECommerce"."tdLostCustomers"
           SELECT
             CAST(MongoData."user" AS INTEGER),
-            CAST(MongoData.fdate AS DATE FORMAT 'YYYY-MM'),
-            CAST(MongoData.referrer AS VARCHAR(255)),
+            MongoData,
             orders.status
           FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"user": {"$regex": "^[0-9]+$"}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
           JOIN "MyECommerce"."tdOrder" orders
@@ -43,21 +41,20 @@
         <p>
         We can re-engage those customers who came to the website via the marketing campaign email and did not complete their order with a new 50% off campaign. For those who customers who came to the website via the marketing campaign email and did complete their order we can include them in the new 50% off campaign and provide a the most browsed item among them as a free giveaway with their order.
         </p>
-        <textarea id="block2" style="height: 200px;">
+        <textarea id="block2" class="cm-150">
         SELECT UserID 
         FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'incomplete';
         </textarea>
-        <textarea id="block3" style="height: 200px;">
-        SELECT UserID 
+        <textarea id="block3" class="cm-200">
+        SELECT UserID
         FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'completed';
         
-        SELECT MongoData."page", COUNT(*) AS "ItemCount" 
-        FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"user": {"$regex": "^[0-9]+$"}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
-        JOIN "MyECommerce"."tdLostCustomers"
-            ON CAST(MongoData."user" AS INTEGER) = tdLostCustomers.customerId
-        GROUP BY MongoData."page" 
+        SELECT JData.JSONExtractValue("$..page") AS "TheItem", COUNT(*) AS "ItemCount" 
+        FROM JOIN "MyECommerce"."tdLostCustomers"
+        WHERE OrderStatus = 'completed' AND JData.JSONExtractValue("$..page") LIKE '%item%'
+        GROUP BY TheItem 
         ORDER BY ItemCount DESC;
         </textarea>
       </div>

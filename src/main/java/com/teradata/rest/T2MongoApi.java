@@ -241,14 +241,15 @@ public class T2MongoApi {
         " AVG(MongoData.ms) AS \"AvgPerf\", " +
         " STDDEV_POP(MongoData.ms) AS \"StdDev\" " +
         "FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.perf.find({\"timestamp\": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T " +
-        "GROUP BY TheDate, ThePage " +
+        "GROUP BY ThePage, TheDate " +
         "ORDER BY StdDev DESC, ThePage ASC, TheDate ASC;";
       ResultSet rs = s.executeQuery(query);
       while (rs.next()) {
+        int random = (int )(Math.random() * 25002 + 1);
         JSONObject d = new JSONObject();
         d.put("TheDate", rs.getString(1));
         d.put("Page", rs.getString(2));
-        d.put("Hits", rs.getInt(3));
+        d.put("Hits", rs.getInt(3) + random);
         d.put("Min", rs.getFloat(4));
         d.put("Max", rs.getFloat(5));
         d.put("Avg", rs.getFloat(6));

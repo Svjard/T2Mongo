@@ -40,7 +40,7 @@ ORDER BY ThePage ASC, TheDate ASC;</textarea>
                 <th>TheDate</th>
                 <th>Page</th>
                 <th>Page Hits</th>
-                <th>Min (ms)</th>
+                <!--<th>Min (ms)</th>-->
                 <th>Max (ms)</th>
                 <th>Avg (ms)</th>
                 <th>Std. Dev.</th>
@@ -59,24 +59,8 @@ ORDER BY ThePage ASC, TheDate ASC;</textarea>
     <div class="panel panel-primary panel-admin panel-performance">
       <div class="panel-body">
         <h4>Actions Performance</h4>
-        <div class="table-responsive" style="height: 250px;">
-          <table id="table-transactions" class="table table-striped table-hover table-condensed">
-            <thead>
-              <tr>
-                <th>TheDate</th>
-                <th>Page</th>
-                <th>Page Hits</th>
-                <th>Min (ms)</th>
-                <th>Max (ms)</th>
-                <th>Avg (ms)</th>
-                <th>Std. Dev.</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-
-            </tbody>
-          </table>
+        <div class="actions-performance">
+        <!-- TODO -->
         </div>
       </div>
     </div>

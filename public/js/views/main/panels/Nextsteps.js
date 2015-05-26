@@ -18,7 +18,7 @@ module.exports = Marionette.ItemView.extend({
         cm.setSize(null,375);
       }
       else if (n === 1) {
-        cm.setSize(null,175);
+        cm.setSize(null,75);
       }
       else if (n === 2) {
         cm.setSize(null,250);

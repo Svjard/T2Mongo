@@ -14,22 +14,22 @@
       <div class="panel-body">
         <h4>Query Set</h4>
         <textarea id="block1" class="cm-400">
-        CREATE TABLE "MyECommerce"."tdLostCustomers"
-        (
-          UserID INTEGER,
-          JData JSON(1600000),
-          OrderStatus VARCHAR(255) 
-        );
+CREATE TABLE "MyECommerce"."tdLostCustomers"
+(
+  UserID INTEGER,
+  JData JSON(1600000),
+  OrderStatus VARCHAR(255) 
+);
 
-        INSERT INTO "MyECommerce"."tdLostCustomers"
-          SELECT
-            CAST(MongoData."user" AS INTEGER),
-            MongoData,
-            orders.status
-          FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"user": {"$regex": "^[0-9]+$"}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
-          JOIN "MyECommerce"."tdOrder" orders
-            ON orders.created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' 
-            AND CAST(MongoData."user" AS INTEGER) = orders.customerId;
+INSERT INTO "MyECommerce"."tdLostCustomers"
+  SELECT
+    CAST(MongoData."user" AS INTEGER),
+    MongoData,
+    orders.status
+  FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"user": {"$regex": "^[0-9]+$"}, "timestamp": {$gte: 1420070400000, $lte: 1433289599000}}) @END_PASS_THRU)@Mongo AS T
+  JOIN "MyECommerce"."tdOrder" orders
+    ON orders.created BETWEEN DATE '2015-05-01' AND DATE '2015-06-02' 
+    AND CAST(MongoData."user" AS INTEGER) = orders.customerId;
         </textarea>
       </div>
     </div>
@@ -44,8 +44,7 @@
         <textarea id="block2" class="cm-150">
 SELECT UserID 
 FROM "MyECommerce"."tdLostCustomers"
-WHERE OrderStatus = 'incomplete';
-        </textarea>
+WHERE OrderStatus = 'incomplete';</textarea>
         <textarea id="block3" class="cm-200">
 SELECT UserID
 FROM "MyECommerce"."tdLostCustomers"
@@ -57,8 +56,7 @@ WHERE OrderStatus = 'completed' AND JData.JSONExtractValue("$..page") LIKE '%ite
 JOIN "MyECommerce"."tdProduct" prd
   ON productID = SUBSTRING (TheItem FROM 6 FOR 10)
 GROUP BY TheItem 
-ORDER BY ItemCount DESC;
-        </textarea>
+ORDER BY ItemCount DESC;</textarea>
       </div>
     </div>
   </div>

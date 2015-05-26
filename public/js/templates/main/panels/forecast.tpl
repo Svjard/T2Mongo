@@ -34,8 +34,17 @@ SELECT * FROM SCRIPT
 SCRIPT_COMMAND('python ./dr_forecast/forecast.py')
 RETURNS ('fdate VARCHAR(30)', 'predicted_value FLOAT')
 DELIMITER(':')
-);
-</textarea>
+);</textarea>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="panel panel-primary panel-admin panel-quarterly">
+      <div class="panel-body">
+        <h4>Forecasted Q2 Revenue</h4>
+        <div id="forcaste-revenue-chart">
+          
+        </div>
+      </div>
     </div>
   </div>
 </div>

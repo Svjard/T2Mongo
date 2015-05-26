@@ -39,7 +39,7 @@
       <div class="panel-body">
         <h4>Proposal</h4>
         <p>
-        We can re-engage those customers who came to the website via the marketing campaign email and did not complete their order with a new 50% off campaign. For those who customers who came to the website via the marketing campaign email and did complete their order we can include them in the new 50% off campaign and provide a the most browsed item among them as a free giveaway with their order.
+        We can re-engage those customers who came to the website via the marketing campaign email and did not complete their order with a new 50% off campaign. For those who customers who came to the website via the marketing campaign email and did complete their order we can include them in the new 60% off campaign and provide a the most browsed item among them as a free giveaway with their order.
         </p>
         <textarea id="block2" class="cm-150">
         SELECT UserID 
@@ -51,9 +51,11 @@
         FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'completed';
         
-        SELECT JData.JSONExtractValue("$..page") AS "TheItem", COUNT(*) AS "ItemCount" 
-        FROM JOIN "MyECommerce"."tdLostCustomers"
+        SELECT JData.JSONExtractValue("$..page") AS "TheItem", prd.name, COUNT(*) AS "ItemCount" 
+        FROM "MyECommerce"."tdLostCustomers"
         WHERE OrderStatus = 'completed' AND JData.JSONExtractValue("$..page") LIKE '%item%'
+        JOIN "MyECommerce"."tdProduct" prd
+          ON productID = SUBSTRING (TheItem FROM 6 FOR 10)
         GROUP BY TheItem 
         ORDER BY ItemCount DESC;
         </textarea>

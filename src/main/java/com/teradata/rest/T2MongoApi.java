@@ -116,8 +116,6 @@ public class T2MongoApi {
   }
 
 
-  // IN PROGRESS
-  // SELECT DISTINCT * FROM SCRIPT (script_command(echo root | sudo -S /usr/local/lib64/R/bin/R --vanilla --slave -e "write(pi, stdout())"'') reTURNS ('piVal VARCHAR(20)'))
   @POST
   @Path("query2")
   @Produces(MediaType.APPLICATION_JSON)
@@ -406,7 +404,7 @@ public class T2MongoApi {
         "FROM \"MyECommerce\".\"tdDiscount\" a " +
         "JOIN \"MyECommerce\".\"tdMarketingCampaign\" b " +
         "ON a.campaignId = b.campaignId " +
-        "WHERE b.campaignId = 1;";
+        "WHERE b.campaignId = 32516;";
       boolean results = s.execute(query);
       int rsCount = 0;
 

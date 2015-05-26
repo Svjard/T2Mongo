@@ -43,7 +43,7 @@ FROM FOREIGN TABLE(@BEGIN_PASS_THRU t2mongo.userstats.find({"user": {$ne: "127.0
 GROUP BY TheDate
 ORDER BY TheDate ASC;
 
-# To do this in MongoDB natively we would need to use MongoDB's aggregate pipeline as follows:
+# To do this in MongoDB natively we would need to use MongoDB's aggregate framework as follows:
 #
 db.userstats.aggregate(
    [

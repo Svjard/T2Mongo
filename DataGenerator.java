@@ -2753,9 +2753,9 @@ public class DataGenerator {
     importSQL("data/tdDiscount.sql");
     importSQL("data/tdMarketingCampaign.sql");
     importSQL("data/tdOrder.sql");
-    importSQL("data/tdOrderItem.sql");
     importSQL("data/tdProduct.sql");
     importSQL("data/tdSKU.sql");
+    //importSQL("data/tdOrderItem.sql");
   }
 
   public static void main(String[] args) throws Exception {

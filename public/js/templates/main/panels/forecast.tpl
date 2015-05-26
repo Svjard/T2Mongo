@@ -25,7 +25,8 @@ SET SESSION SEARCHUIFDBPATH = dr_forecast;
 SELECT * FROM SCRIPT
 ( ON (SELECT
     TRIM(EXTRACT(month from created)) AS "OrderDNum",
-    SUM (total) 
+    SUM (total),
+    3 -- number of values to predict into the future
   FROM "MyECommerce"."tdOrder"
   WHERE created BETWEEN DATE '2015-01-01' AND DATE '2015-06-02'
   GROUP BY TRIM(EXTRACT(month from created))

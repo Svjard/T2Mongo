@@ -15,7 +15,12 @@ module.exports = Marionette.ItemView.extend({
         mode: 'text/x-sql'
       });
 
-      cm.setSize(null,175);
+      if (n === 0 || n === 1) {
+        cm.setSize(null, 150);
+      }
+      else {
+        cm.setSize(null, 400);
+      }
     });
 
     var self = this;

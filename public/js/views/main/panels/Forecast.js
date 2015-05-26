@@ -6,7 +6,7 @@ module.exports = Marionette.ItemView.extend({
   className: 'panel-view',
   onShow: function() {
     _.each(_.range(1), function(n) {
-      CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
+     var cm = CodeMirror.fromTextArea(document.getElementById('block' + (n + 1)), {
         lineNumbers: true,
         styleActiveLine: true,
         matchBrackets: true,
